@@ -1,0 +1,18 @@
+{
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "target": "es2021",
+    "lib": ["es2021"],
+    "module": "es2022",
+    "moduleResolution": "node",
+    "types": ["vite/client"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true
+  }
+}

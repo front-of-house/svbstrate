@@ -1,0 +1,23 @@
+{
+  "name": "package",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "vitest run --coverage",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "typegen": "tsc --emitDeclarationOnly"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/front-of-house/monorepo.git"
+  },
+  "author": "estrattonbailey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/front-of-house/monorepo/issues"
+  },
+  "homepage": "https://github.com/front-of-house/monorepo#readme"
+}

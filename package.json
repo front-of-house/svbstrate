@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "name": "monorepo",
+  "description": "Monorepo template",
+  "scripts": {
+    "test": "pnpm -r t",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
+    "changeset": "changeset",
+    "release": "pnpm build && changeset publish",
+    "version-packages": "changeset version && pnpm format && pnpm install --no-frozen-lockfile && git add .",
+    "gutcheck": "pnpm build && pnpm typecheck && pnpm test && pnpm format"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.0",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@vitest/coverage-c8": "^0.28.3",
+    "commitlint": "^15.0.0",
+    "husky": "^7.0.4",
+    "is-ci": "^3.0.1",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1",
+    "vitest": "^0.28.3"
+  }
+}

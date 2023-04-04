@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["lib", "env.d.ts"],
+  "compilerOptions": {
+    "declarationDir": "dist"
+  }
+}
