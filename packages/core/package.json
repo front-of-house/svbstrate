@@ -1,11 +1,12 @@
 {
-  "name": "package",
+  "name": "@svbstrate/core",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "vitest run --coverage",
+    "test:watch": "vitest --coverage",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "typegen": "tsc --emitDeclarationOnly"
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/front-of-house/monorepo/issues"
   },
-  "homepage": "https://github.com/front-of-house/monorepo#readme"
+  "homepage": "https://github.com/front-of-house/monorepo#readme",
+  "dependencies": {
+    "csstype": "^3.1.2",
+    "deepmerge": "^4.3.1"
+  }
 }

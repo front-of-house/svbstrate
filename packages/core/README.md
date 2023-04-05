@@ -1,6 +1,6 @@
-# svbstrate
+# @svbstate/core
 
-Next generation styling for all JavaScript projects.
+Low-level utilities for building styling libraries.
 
 ### License
 

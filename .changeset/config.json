@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@1.6.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "front-of-house/monorepo" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "front-of-house/svbstrate" }],
   "commit": false,
   "linked": [],
   "access": "public",

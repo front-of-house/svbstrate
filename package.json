@@ -1,7 +1,6 @@
 {
   "private": true,
-  "name": "monorepo",
-  "description": "Monorepo template",
+  "name": "@svbstrate/monorepo",
   "scripts": {
     "test": "pnpm -r t",
     "build": "pnpm -r build",
