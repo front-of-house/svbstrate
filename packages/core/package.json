@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "build": "pnpm t && vite build && pnpm typegen",
     "test": "vitest run --coverage",
     "test:watch": "vitest --coverage",
-    "build": "vite build",
     "typecheck": "tsc --noEmit",
     "typegen": "tsc --emitDeclarationOnly"
   },
