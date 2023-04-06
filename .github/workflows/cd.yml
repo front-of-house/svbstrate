@@ -6,9 +6,6 @@ on:
       - main
       - beta
 
-env:
-  PNPM_CACHE_FOLDER: .pnpm-store
-
 jobs:
   build:
     name: Release
@@ -49,3 +46,4 @@ jobs:
           title: "chore: version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
