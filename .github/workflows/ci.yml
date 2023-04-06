@@ -36,10 +36,3 @@ jobs:
       #   uses: coverallsapp/github-action@master
       #   with:
       #     github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      # release
-      - name: release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm exec semantic-release -d
