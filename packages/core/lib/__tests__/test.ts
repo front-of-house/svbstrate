@@ -1,0 +1,94 @@
+import * as s from "../";
+
+declare module "../" {
+  interface Tokens {
+    color: {
+      primary: "#ff4567";
+      secondary: "#ff4567";
+    };
+  }
+
+  interface Shorthands extends s.PresetShorthands {}
+
+  interface Macros {}
+
+  interface Variants {
+    btn: "primary" | "secondary";
+  }
+}
+
+const theme = s.createTheme({
+  tokens: {
+    color: {
+      primary: "#ff4567",
+      secondary: "#ff4567",
+    },
+    space: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64],
+    fontFamily: {
+      mono: "monospace",
+    },
+    fontSize: [
+      "3rem",
+      "3rem",
+      "2.2rem",
+      "1.8rem",
+      "1.4rem",
+      "1rem",
+      "0.875rem",
+    ],
+    fontWeight: [
+      "0",
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900",
+      "1000",
+    ],
+    lineHeight: [1.1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6],
+    width: [1],
+  },
+  shorthands: {
+    pl: ["paddingLeft"],
+  },
+  macros: {
+    f: {
+      display: "flex",
+    },
+  },
+  variants: {
+    btn: {
+      primary: {
+        c: "primary",
+      },
+      secondary: {
+        c: "secondary",
+      },
+    },
+  },
+});
+
+s.style(
+  {
+    padding: 4,
+    // pl: 0,
+    color: "primary",
+    // c: 'foo',
+    div: {
+      color: "primary",
+    },
+    c: "whitesmoke",
+    f: true,
+    btn: "primary",
+    ff: "mono",
+    ":hover": {
+      color: "primary",
+    },
+    w: 5,
+  },
+  theme
+);

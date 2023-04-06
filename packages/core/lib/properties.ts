@@ -1,4 +1,4 @@
-import { CSSPropertyMapping } from "./";
+import { ThemeConfig } from "./types";
 
 export function string(v: string | number) {
   return v + "";
@@ -12,7 +12,7 @@ export function percentOrPixels(v: string | number) {
   return typeof v === "number" ? (v <= 1 ? v * 100 + "%" : v + "px") : v;
 }
 
-export const properties: CSSPropertyMapping = {
+export const properties: ThemeConfig["properties"] = {
   display: {},
   position: {},
   top: {

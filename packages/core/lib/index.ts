@@ -1,125 +1,57 @@
-import merge from "deepmerge";
-import * as CSS from "csstype";
+import * as types from "./types";
+import { properties as cssProperties } from "./properties";
 
-import { properties as cssPropertyMapping } from "./properties";
-
-type CSSPropertyNames = keyof CSS.Properties | string;
-
-type Value = string | number;
-type KeyValue = Record<string, Value>;
-type UnknownKeyValue = Record<string, unknown>;
-
-export type StyleObject = {
-  [propertyOrSelector: string]: any | StyleObject;
-};
-
-export type SvbstrateValue =
-  | { [k: number]: Value }
-  | Value[]
-  | Value
-  | boolean
-  | undefined;
-
-export type SvbstrateStyleObject =
-  | ({
-      // normal css
-      [property in CSSPropertyNames]?: SvbstrateValue;
-    } & {
-      // psuedo selector blocks
-      [pseudo in CSS.Pseudos]?: SvbstrateStyleObject;
-    } & {
-      // nested selector blocks
-      [tag in keyof HTMLElementTagNameMap]?: SvbstrateStyleObject;
-    } & {
-      // any other selector, like wacky `& > * + *` stuff
-      [selector: string]: SvbstrateStyleObject;
-    })
-  | {
-      // any svbstrate properties, like shorthands
-      [prop: string]: SvbstrateValue | any;
-    };
-
-export type Tokens = {
-  [token: string]: Value[] | KeyValue;
-};
-
-export type Shorthands = {
-  [shorthand: string]: CSSPropertyNames | CSSPropertyNames[];
-};
-
-export type Macros = {
-  [macro: string]: SvbstrateStyleObject;
-};
-
-export type Variants = {
-  [variation: string]: {
-    [name: string]: SvbstrateStyleObject;
-  };
-};
-
-export type CSSPropertyMapping = {
-  [property in CSSPropertyNames]?: {
-    token?: keyof Tokens;
-    unit?(value: any): string;
-  };
-};
-
-export interface UserTheme {}
-
-export type Theme = {
-  breakpoints: Value[];
-  tokens: Tokens;
-  shorthands: Shorthands;
-  macros: Macros;
-  variants: Variants;
-  properties: CSSPropertyMapping;
-} & UserTheme;
+export * from "./types";
 
 /**
  * Expand all macros, variants, and shorthand props.
  */
 export function explode(
-  props: SvbstrateStyleObject,
-  theme: Theme
-): SvbstrateStyleObject {
-  let styles: SvbstrateStyleObject = {};
+  props: types.SvbstrateStyleObject,
+  theme: types.ThemeConfig
+): types.SvbstrateStyleObject {
+  let styles: types.SvbstrateStyleObject = {};
 
-  // expand macros and variants, copy other props
-  for (const prop of Object.keys(props)) {
-    // macro exists AND prop is true
-    if (theme.macros[prop] && (props[prop] === true || props[prop] === false)) {
-      if (props[prop] === true) styles = merge(styles, theme.macros[prop]);
+  for (const [prop, value] of Object.entries(props)) {
+    if (theme.macros[prop] && typeof value === "boolean") {
+      /*
+       * Macro exists and is true, merge it in. If false, just drop it, hence
+       * the typeof check above.
+       */
+      if (value)
+        Object.assign(styles, theme.macros[prop] as types.SvbstrateStyleObject);
     } else if (theme.variants[prop]) {
-      styles = merge(styles, theme.variants[prop][props[prop] as string]);
+      /*
+       * Variant exists, merge it in.
+       */
+      Object.assign(styles, theme.variants[prop][value as string]);
+    } else if (typeof value === "object" && !Array.isArray(value)) {
+      /*
+       * If we have some other object here, we need to recurse.
+       */
+      styles[prop] = explode(value, theme);
     } else {
-      styles[prop] = props[prop];
+      /*
+       * We otherwise have a simple value
+       */
+      styles[prop] = value as types.SvbstrateValue;
     }
   }
 
-  // recursively expand all shorthands
-  for (const prop of Object.keys(styles)) {
-    const value = styles[prop];
+  /*
+   * If any keys are shorthand props, expand them and overwrite their previous
+   * values
+   */
+  for (const [prop, value] of Object.entries(styles)) {
+    const cssProperties = theme.shorthands[prop];
 
-    // Could be nested object, ignore responsive array/object syntax
-    if (
-      typeof value === "object" &&
-      !Array.isArray(value) &&
-      !/^\d/.test(Object.keys(value)[0])
-    ) {
-      styles[prop] = explode(value, theme);
-      continue;
-    }
-
-    if (theme.shorthands[prop]) {
-      const shorthands = ([] as string[]).concat(theme.shorthands[prop]);
-
-      for (let i = 0; i < shorthands.length; i++) {
-        styles[shorthands[i]] = value;
+    if (cssProperties && cssProperties.length) {
+      for (const property of cssProperties) {
+        // @ts-expect-error
+        styles[property] = value;
       }
 
-      delete styles[prop]; // remove shorthand key
-    } else {
-      styles[prop] = value;
+      delete styles[prop]; // remove original shorthand key
     }
   }
 
@@ -130,49 +62,60 @@ export function explode(
  * Accepts a svbstrate object and converts it to a CSS object intelligible by
  * any CSS-in-JS library that supports objects.
  */
-export function style(props: SvbstrateStyleObject, theme: Theme): StyleObject {
-  props = explode(props, theme);
-
-  let styles: StyleObject = {};
+export function style(
+  props: types.SvbstrateStyleObject,
+  theme: types.ThemeConfig
+): types.StyleObject {
+  const exploded = explode(props, theme);
+  let styles: types.StyleObject = {};
   const responsive: {
-    [breakpoint: string]: StyleObject;
+    [breakpoint: string]: types.StyleObject;
   } = {};
 
-  for (const prop of Object.keys(props)) {
-    const mixedObject: SvbstrateStyleObject | SvbstrateValue = props[prop];
-
-    // must have a style object or responsive object
-    if (typeof mixedObject === "object" && !Array.isArray(mixedObject)) {
-      const keyIndicies = Object.keys(mixedObject);
-
-      // convert responsive object to array syntax
-      if (/^\d/.test(keyIndicies[0])) {
-        const arr: SvbstrateStyleObject[] = [];
-
-        keyIndicies.forEach((i) => {
-          // @ts-ignore
-          arr[i] = mixedObject[i];
-        });
-
-        props[prop] = arr;
-      } else {
-        /*
-         * Safely merge in nested prop — there may be duplicate keys, like
-         * after shorthand expansion or a custom media query block
-         */
-        const nested: StyleObject = {};
-        nested[prop] = style(mixedObject, theme);
-        styles = merge(styles, nested);
-        continue; // continue, nested style object
-      }
+  for (const [prop, propertyValue] of Object.entries(exploded)) {
+    /*
+     * Handle nested SvbstrateStyleObject. Pass it back through `style()`
+     * and merge the result. Then, exit from the loop, since the rest of the
+     * handling is for primitive values.
+     */
+    if (typeof propertyValue === "object" && !Array.isArray(propertyValue)) {
+      Object.assign(styles, {
+        // overwrite prop with nested styles
+        [prop]: style(propertyValue, theme),
+      });
+      continue; // continue, nested style object
     }
 
-    const config = theme.properties[prop] || {};
-    const tokens = config.token ? theme.tokens[config.token] : undefined;
-    const values = ([] as Value[]).concat(props[prop]);
+    /*
+     * At this point, nested objects have been processed, and we're left with
+     * either a primitive, or array of primitives.
+     */
 
-    for (let o = 0; o < values.length; o++) {
-      const rawValue = values[o];
+    /**
+     * CSS property config, if it exists.
+     */
+    const config = theme.properties[prop as keyof types.CSSProperties] || {};
+
+    /**
+     * Theme tokens, if they exist for this CSS property
+     */
+    const tokens = config.token ? theme.tokens[config.token] : undefined;
+
+    /**
+     * An array of property values. We normalize this because values can be
+     * singular or a `ResponsiveValue` array.
+     */
+    const values = ([] as types.Value[]).concat(
+      propertyValue as types.ResponsiveValue<types.Value>
+    );
+
+    for (let i = 0; i < values.length; i++) {
+      const rawValue = values[i];
+
+      // E.g. a responsive array with no values at some breakpoints
+      if (rawValue === undefined) continue;
+
+      // This block "unitizes" and signs the value
       const signer = rawValue < 0 ? -1 : 1;
       const unsignedValue =
         typeof rawValue === "number" ? Math.abs(rawValue) : rawValue;
@@ -189,20 +132,27 @@ export function style(props: SvbstrateStyleObject, theme: Theme): StyleObject {
       // drop undefined values, all others pass through
       if (computedValue === undefined) continue;
 
-      const breakpoint = theme.breakpoints[o - 1];
+      // For initial mobile styles, this will eval to undefined
+      const breakpoint = theme.breakpoints[i - 1];
 
       if (breakpoint) {
-        // drop down a level (into breakpoint)
+        // Create if not exists yet, and assign property value
         responsive[breakpoint] = responsive[breakpoint] || {};
         responsive[breakpoint][prop] = computedValue;
-      } else if (!breakpoint && o > 0) {
+      } else if (!breakpoint && i > 0) {
+        // User must have provided a value for a breakpoint that doesn't exist
         continue;
       } else {
+        // Initial mobile styles
         styles[prop] = computedValue;
       }
     }
   }
 
+  /**
+   * Responsive styles are still separate from the full style object. Before we
+   * merge, we need to sort them by breakpoint.
+   */
   const sortedBreakpointStyles = Object.keys(responsive)
     .sort((a, b) => parseInt(a) - parseInt(b))
     .reduce((res, breakpoint) => {
@@ -210,14 +160,18 @@ export function style(props: SvbstrateStyleObject, theme: Theme): StyleObject {
       return res;
     }, {} as typeof responsive);
 
-  for (const key of Object.keys(sortedBreakpointStyles)) {
-    const existingBreakpointStyles = styles[key] || {};
+  /**
+   * Now that we're sorted, merge in responsive styles with any existing
+   * breakpoints the user has defined, if any.
+   */
+  for (const [breakpoint, responsiveStyles] of Object.entries(
+    sortedBreakpointStyles
+  )) {
+    const existingBreakpointStyles = styles[breakpoint] || {};
 
-    styles[key] = {
-      ...(typeof existingBreakpointStyles === "object"
-        ? existingBreakpointStyles
-        : {}), // existing breakpoint styles, if any
-      ...sortedBreakpointStyles[key], // new breakpoint styles
+    styles[breakpoint] = {
+      ...existingBreakpointStyles,
+      ...responsiveStyles, // new breakpoint styles
     };
   }
 
@@ -225,23 +179,24 @@ export function style(props: SvbstrateStyleObject, theme: Theme): StyleObject {
 }
 
 /**
- * Separates style props from everything else
+ * Separates known style props from everything else.
  */
-export function pick<T = UnknownKeyValue>(
-  props: SvbstrateStyleObject,
-  theme: Theme
-): { styles: SvbstrateStyleObject; props: T } {
-  const styles: SvbstrateStyleObject = {};
-  const extra: UnknownKeyValue = {};
+export function pick<T = types.UnknownKeyValue>(
+  props: types.UnknownKeyValue,
+  theme: types.ThemeConfig
+): { styles: types.SvbstrateStyleObject; props: T } {
+  const styles: types.SvbstrateStyleObject = {};
+  const extra: types.UnknownKeyValue = {};
 
   for (const prop of Object.keys(props)) {
     if (
       theme.macros[prop] ||
       theme.variants[prop] ||
       theme.shorthands[prop] ||
+      // @ts-ignore
       theme.properties[prop]
     ) {
-      styles[prop] = props[prop];
+      styles[prop] = props[prop] as types.SvbstrateStyleObject;
     } else {
       extra[prop] = props[prop];
     }
@@ -254,19 +209,17 @@ export function pick<T = UnknownKeyValue>(
 }
 
 /**
- * Creates a fully defined `Theme` object from a partial definition.
+ * Creates a fully defined `ThemeConfig` object from a partial definition.
  */
-export function createTheme(theme: Partial<Theme>): Theme {
+export function createTheme(
+  theme: Partial<types.ThemeConfig> = {}
+): types.ThemeConfig {
   return {
-    breakpoints: [],
-    tokens: theme.tokens || {},
-    shorthands: theme.shorthands || {},
-    macros: theme.macros || {},
-    variants: theme.variants || {},
-    properties: {
-      ...cssPropertyMapping,
-      ...theme.properties,
-    },
-    ...theme,
+    breakpoints: theme.breakpoints || [],
+    tokens: Object.assign({}, theme.tokens || {}),
+    shorthands: Object.assign({}, theme.shorthands || {}),
+    macros: Object.assign({}, theme.macros || {}),
+    variants: Object.assign({}, theme.variants || {}),
+    properties: Object.assign({}, cssProperties, theme.properties),
   };
 }

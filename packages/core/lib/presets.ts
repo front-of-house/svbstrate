@@ -1,8 +1,12 @@
-import { Tokens, Shorthands, Macros } from ".";
+import { ThemeConfig } from "./types";
 
-export const breakpoints: string[] = ["400px", "800px", "1200px"];
+export const breakpoints: ThemeConfig["breakpoints"] = [
+  "400px",
+  "800px",
+  "1200px",
+];
 
-export const tokens: Tokens = {
+export const tokens: ThemeConfig["tokens"] = {
   space: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64],
   fontSize: ["3rem", "3rem", "2.2rem", "1.8rem", "1.4rem", "1rem", "0.875rem"],
   fontWeight: [
@@ -21,35 +25,35 @@ export const tokens: Tokens = {
   lineHeight: [1.1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6],
 };
 
-export const shorthands: Shorthands = {
-  d: "display",
-  w: "width",
-  h: "height",
-  c: "color",
-  bg: "background",
+export const shorthands: ThemeConfig["shorthands"] = {
+  d: ["display"],
+  w: ["width"],
+  h: ["height"],
+  c: ["color"],
+  bg: ["background"],
   m: ["marginTop", "marginBottom", "marginLeft", "marginRight"],
-  mt: "marginTop",
-  mb: "marginBottom",
-  ml: "marginLeft",
-  mr: "marginRight",
+  mt: ["marginTop"],
+  mb: ["marginBottom"],
+  ml: ["marginLeft"],
+  mr: ["marginRight"],
   my: ["marginTop", "marginBottom"],
   mx: ["marginLeft", "marginRight"],
-  p: ["paddingTop", "paddingBottom", "paddingLeft", "paddingRight"],
-  pt: "paddingTop",
-  pb: "paddingBottom",
-  pl: "paddingLeft",
-  pr: "paddingRight",
+  pa: ["paddingTop", "paddingBottom", "paddingLeft", "paddingRight"],
+  pt: ["paddingTop"],
+  pb: ["paddingBottom"],
+  pl: ["paddingLeft"],
+  pr: ["paddingRight"],
   py: ["paddingTop", "paddingBottom"],
   px: ["paddingLeft", "paddingRight"],
-  z: "zIndex",
-  fs: "fontSize",
-  ff: "fontFamily",
-  fw: "fontWeight",
-  lh: "lineHeight",
-  ta: "textAlign",
+  z: ["zIndex"],
+  fs: ["fontSize"],
+  ff: ["fontFamily"],
+  fw: ["fontWeight"],
+  lh: ["lineHeight"],
+  ta: ["textAlign"],
 };
 
-export const macros: Macros = {
+export const macros: ThemeConfig["macros"] = {
   db: { display: "block" },
   dib: { display: "inline-block" },
   di: { display: "inline" },
@@ -76,12 +80,10 @@ export const macros: Macros = {
     left: 0,
     right: 0,
   },
-  w: { width: 1 },
-  h: { height: 1 },
   tac: { textAlign: "center" },
   tar: { textAlign: "right" },
   taj: { textAlign: "justify" },
-  ma: { m: "auto" },
-  mxa: { mx: "auto" },
-  mya: { my: "auto" },
+  ma: { margin: "auto" },
+  mxa: { marginLeft: "auto", marginRight: "auto" },
+  mya: { marginTop: "auto", marginBottom: "auto" },
 };

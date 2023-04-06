@@ -6,17 +6,9 @@ import * as defaults from "../presets";
 
 const { tokens, shorthands, macros } = defaults;
 
-const defaultTheme = createTheme(defaults);
+const theme = createTheme(defaults);
 
 test("explode", () => {
-  const theme = createTheme({
-    shorthands: {
-      c: "color",
-      m: ["marginTop", "marginBottom", "marginLeft", "marginRight"],
-      d: "display",
-    },
-  });
-
   const styles = {
     ...explode({ c: "blue" }, theme),
     ...explode({ color: "red" }, theme),
@@ -33,38 +25,39 @@ test("explode", () => {
     ...explode(
       {
         m: [0, 1, 2],
-        d: { 0: "none", 1: "block" },
+        d: ["none", "block"],
       },
       theme
     ),
   };
 
   expect(styles.color).toEqual("red");
+  // @ts-expect-error can be array or not
   expect(styles.marginTop[1]).toEqual(1);
   expect(typeof styles.display).toEqual("object");
-  expect(styles.div.a.color).toEqual("tomato");
+  expect(styles?.div?.a?.color).toEqual("tomato");
 });
 
 test("explode with no values", () => {
-  const styles = explode({}, defaultTheme);
+  const styles = explode({}, theme);
   expect(styles).toEqual({});
 });
 
 test("style", () => {
-  const theme = createTheme({
+  const custom = createTheme({
     breakpoints: ["400px", "800px", "1200px"],
     tokens: {
       space: [0, 4, 8, 12],
     },
     shorthands: {
-      c: "color",
+      c: ["color"],
       m: ["marginTop", "marginBottom", "marginLeft", "marginRight"],
     },
   });
 
   const styles = {
-    ...style({ c: "blue" }, theme),
-    ...style({ m: [0, 1, 2] }, theme),
+    ...style({ c: "blue" }, custom),
+    ...style({ m: [0, 1, 2] }, custom),
   };
 
   expect(styles.color).toEqual("blue");
@@ -72,6 +65,7 @@ test("style", () => {
 });
 
 for (const key of Object.keys(defaultCssProps)) {
+  // @ts-expect-error yes yes can't index CSSProperties
   const property = defaultCssProps[key];
 
   if (!property) continue;
@@ -79,12 +73,12 @@ for (const key of Object.keys(defaultCssProps)) {
   test(`props - ${key}`, () => {
     const { unit, token } = property;
     const rawValue = 0;
+    // @ts-expect-error
     const themeScale = token ? tokens[token] : undefined;
-    // @ts-ignore
     const themeValue = themeScale ? themeScale[rawValue] : rawValue;
     const parsedValue = unit ? unit(themeValue) : themeValue;
 
-    const styles = style({ [key]: rawValue }, defaultTheme);
+    const styles = style({ [key]: rawValue }, theme);
 
     expect(styles[key]).toEqual(parsedValue);
   });
@@ -94,6 +88,7 @@ for (const key of Object.keys(shorthands)) {
   const properties = ([] as string[]).concat(shorthands[key]);
 
   for (const prop of properties) {
+    // @ts-expect-error
     const property = defaultCssProps[prop];
 
     if (!property) continue;
@@ -101,12 +96,12 @@ for (const key of Object.keys(shorthands)) {
     test(`shorthands - ${key}`, () => {
       const { unit, token } = property;
       const rawValue = 0;
+      // @ts-expect-error
       const themeScale = token ? tokens[token] : undefined;
-      // @ts-ignore
       const themeValue = themeScale ? themeScale[rawValue] : rawValue;
       const parsedValue = unit ? unit(themeValue) : themeValue;
 
-      const styles = style({ [prop]: rawValue }, defaultTheme);
+      const styles = style({ [prop]: rawValue }, theme);
 
       expect(styles[prop]).toEqual(parsedValue);
     });
@@ -115,15 +110,16 @@ for (const key of Object.keys(shorthands)) {
 
 for (const key of Object.keys(macros)) {
   test(`macro - ${key}`, () => {
-    const rawStyles = style(macros[key], defaultTheme);
-    const styles = style({ [key]: true }, defaultTheme);
+    // @ts-expect-error
+    const rawStyles = style(macros[key], theme);
+    const styles = style({ [key]: true }, theme);
 
     expect(rawStyles).toEqual(styles);
   });
 }
 
-test("macro - falsy", () => {
-  const theme = createTheme({
+test("macros", () => {
+  const custom = createTheme({
     macros: {
       b: {
         color: "blue",
@@ -131,12 +127,15 @@ test("macro - falsy", () => {
     },
   });
 
-  const a = style({ color: "tomato", b: true }, theme);
-  expect(a).toEqual({ color: "blue" });
+  // falsy macro
+  // @ts-expect-error un-typed macro
+  const a = style({ color: "tomato", b: false }, custom);
+
+  expect(a).toEqual({ color: "tomato" });
 });
 
 test("no styles, empty", () => {
-  const styles = style({}, defaultTheme);
+  const styles = style({}, theme);
   expect(styles).toEqual({});
 });
 
@@ -145,7 +144,7 @@ test("works on arbitrary props", () => {
     {
       borderBottomRightRadius: "4px",
     },
-    defaultTheme
+    theme
   );
 
   expect(styles.borderBottomRightRadius).toEqual("4px");
@@ -156,7 +155,7 @@ test("non-theme matched", () => {
     {
       c: "other",
     },
-    defaultTheme
+    theme
   );
 
   expect(styles.color).toEqual("other");
@@ -167,7 +166,7 @@ test("prop with scale and provided value", () => {
     {
       w: "50%",
     },
-    defaultTheme
+    theme
   );
 
   expect(styles.width).toEqual("50%");
@@ -179,7 +178,7 @@ test("percentOrPixel heuristic", () => {
       w: 5,
       h: 1 / 2,
     },
-    defaultTheme
+    theme
   );
 
   expect(styles.width).toEqual("5px");
@@ -191,7 +190,7 @@ test("px heuristic", () => {
     {
       pt: "4px",
     },
-    defaultTheme
+    theme
   );
 
   expect(styles.paddingTop).toEqual("4px");
@@ -202,14 +201,14 @@ test("negative values", () => {
     {
       mt: -2,
     },
-    defaultTheme
+    theme
   );
 
   expect(styles.marginTop).toEqual("-8px");
 });
 
 test("variants", () => {
-  const theme = createTheme({
+  const custom = createTheme({
     shorthands,
     variants: {
       appearance: {
@@ -218,13 +217,24 @@ test("variants", () => {
           bg: "whitesmoke",
         },
       },
+      card: {
+        large: {
+          background: "white",
+          // testing nested object
+          ".button": {
+            c: "red",
+          },
+        },
+      },
     },
   });
   const styles = style(
     {
+      // @ts-expect-error un-typed variant
       appearance: "primary",
+      card: "large",
     },
-    theme
+    custom
   );
 
   expect(styles.color).toEqual("blue");
@@ -232,7 +242,7 @@ test("variants", () => {
 });
 
 test("breakpoints", () => {
-  const theme = createTheme({
+  const custom = createTheme({
     breakpoints: ["400px", "800px"],
     shorthands,
   });
@@ -240,7 +250,7 @@ test("breakpoints", () => {
     {
       c: ["blue", "red", "green"],
     },
-    theme
+    custom
   );
 
   expect(styles.color).toEqual("blue");
@@ -249,18 +259,18 @@ test("breakpoints", () => {
 });
 
 test("breakpoints in correct cascading order", () => {
-  const theme = createTheme({
-    ...defaultTheme,
+  const custom = createTheme({
+    ...theme,
     breakpoints: ["400px", "800px"],
     shorthands,
   });
 
   const styles = style(
     {
-      pt: { 2: 6 },
+      pt: [undefined, undefined, 6],
       pb: [2, 4, 6],
     },
-    theme
+    custom
   );
 
   expect(styles).toEqual({
@@ -276,7 +286,7 @@ test("breakpoints in correct cascading order", () => {
 });
 
 test("breakpoints in other units", () => {
-  const theme = createTheme({
+  const custom = createTheme({
     breakpoints: ["20em", "40em"],
     shorthands,
   });
@@ -284,7 +294,7 @@ test("breakpoints in other units", () => {
     {
       c: ["blue", "red", "green"],
     },
-    theme
+    custom
   );
 
   expect(styles.color).toEqual("blue");
@@ -293,7 +303,7 @@ test("breakpoints in other units", () => {
 });
 
 test("too many breakpoints", () => {
-  const theme = createTheme({
+  const custom = createTheme({
     breakpoints: ["400px", "800px"],
     shorthands,
   });
@@ -301,26 +311,10 @@ test("too many breakpoints", () => {
     {
       c: ["blue", "red", "green", "tomato"],
     },
-    theme
+    custom
   );
 
   expect(styles.color).toEqual("blue"); // could otherwise be tomato
-});
-
-test("named breakpoints", () => {
-  const theme = createTheme({
-    breakpoints: ["400px", "800px", "1200px"],
-    shorthands,
-  });
-  const styles = style(
-    {
-      c: { 0: "blue", 2: "red" },
-    },
-    theme
-  );
-
-  expect(styles.color).toEqual("blue");
-  expect(styles["@media (min-width: 800px)"].color).toEqual("red");
 });
 
 test("pseudo and other selectors", () => {
@@ -328,7 +322,7 @@ test("pseudo and other selectors", () => {
     {
       ":hover": {
         c: "blue",
-        p: 2,
+        pa: 2,
       },
       div: {
         c: "blue",
@@ -337,7 +331,7 @@ test("pseudo and other selectors", () => {
         c: "blue",
       },
     },
-    defaultTheme
+    theme
   );
 
   expect(styles[":hover"].color).toEqual("blue");
@@ -356,7 +350,7 @@ test("pseudo elements", () => {
         content: '"b"',
       },
     },
-    defaultTheme
+    theme
   );
 
   expect(styles["&::after"].content).toEqual('"a"');
@@ -403,7 +397,7 @@ test("issue #7", async () => {
         background: "tomato",
       },
     },
-    defaultTheme
+    theme
   );
 
   expect(styles).toEqual({
