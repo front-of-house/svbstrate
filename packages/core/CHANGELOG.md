@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.3
+
+### Patch Changes
+
+- [#4](https://github.com/front-of-house/svbstrate/pull/4) [`69f7a5a`](https://github.com/front-of-house/svbstrate/commit/69f7a5addc6febb158d17f159fec0e1c1efaf981) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Further improve type safety in both `core` and `react-native`
+
 ## 0.0.2
 
 ### Patch Changes
