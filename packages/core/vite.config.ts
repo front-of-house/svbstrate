@@ -9,9 +9,11 @@ export default defineConfig({
     target: "esnext",
     minify: "esbuild",
     lib: {
-      entry: resolve(__dirname, "lib/index.ts"),
+      entry: [
+        resolve(__dirname, "lib/index.ts"),
+        resolve(__dirname, "lib/presets.ts"),
+      ],
       formats: ["cjs"],
-      fileName: "index",
     },
   },
   test: {

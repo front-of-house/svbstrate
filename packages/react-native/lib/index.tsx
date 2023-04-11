@@ -3,6 +3,8 @@ import React from "react";
 import { View, ViewProps } from "react-native";
 import * as Polymorphic from "@radix-ui/react-polymorphic";
 
+export * as presets from "@svbstrate/core/presets";
+
 export type Theme = Partial<svbstrate.ThemeConfig>;
 
 export type BoxPropsBase = {
