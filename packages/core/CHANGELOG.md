@@ -1,5 +1,13 @@
 # @svbstrate/core
 
+## 0.0.7
+
+### Patch Changes
+
+- [#10](https://github.com/front-of-house/svbstrate/pull/10) [`a38dcbe`](https://github.com/front-of-house/svbstrate/commit/a38dcbe5bff89e8b4c6d0ba0a366ee4bdd754ddd) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Refactor `unit` to `toValue` on the `properties` prop of `theme`
+
+- [#10](https://github.com/front-of-house/svbstrate/pull/10) [`dc49db5`](https://github.com/front-of-house/svbstrate/commit/dc49db59f00544aed427fc1a319a0a33e85715bc) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Add `customProperty` support to theme. `customProperty` allows you to define an arbitrary property name and a function to process it and return a style object.
+
 ## 0.0.6
 
 ### Patch Changes
