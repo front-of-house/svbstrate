@@ -1,0 +1,30 @@
+import React from 'react'
+
+import { ThemeProvider, Box } from '../'
+
+declare module '@svbstrate/core' {
+  interface Tokens {
+    color: {
+      primary: "#ff4567";
+      secondary: "#ff4567";
+    };
+  }
+}
+
+function App() {
+  return (
+    <>
+      <ThemeProvider theme={{
+        tokens: {
+          color: {
+            primary: "#ff4567",
+            secondary: "#ff4567",
+          },
+          space: [],
+        }
+      }}>
+        <Box as={Box} cx={theme => ({ color: theme.color.primary })}>Hello</Box>
+      </ThemeProvider>
+    </>
+  )
+}
