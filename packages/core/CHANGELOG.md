@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.5
+
+### Patch Changes
+
+- [`4e834f8`](https://github.com/front-of-house/svbstrate/commit/4e834f8a635c9ad7033b349102d946efbc6239cb) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Fix exports, export `presets` directly from `react-native` package
+
 ## 0.0.4
 
 ### Patch Changes

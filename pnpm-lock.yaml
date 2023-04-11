@@ -39,7 +39,7 @@ importers:
   packages/react-native:
     specifiers:
       '@radix-ui/react-polymorphic': ^0.0.14
-      '@svbstrate/core': workspace:^0.0.4
+      '@svbstrate/core': workspace:^0.0.5
       '@types/react': '18'
       '@types/react-native': '*'
       esbuild: ^0.17.16
