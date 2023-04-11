@@ -3,7 +3,6 @@
   "include": ["lib"],
   "compilerOptions": {
     "jsx": "react-native",
-    "declarationDir": "dist",
-    "lib": ["dom"]
+    "declarationDir": "dist"
   }
 }
