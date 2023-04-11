@@ -4,6 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./presets": "./dist/presets.js"
+  },
   "scripts": {
     "build": "vite build && pnpm typegen",
     "test": "vitest run --coverage",
