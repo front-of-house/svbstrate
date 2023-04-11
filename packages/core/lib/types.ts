@@ -161,7 +161,7 @@ export interface ThemeConfig {
   };
   customProperties: {
     [Property in keyof CustomProperties]: (
-      value: Value,
+      value: SvbstrateValue,
       theme: Tokens
     ) => SvbstrateStyleObject;
   };

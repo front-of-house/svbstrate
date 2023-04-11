@@ -216,7 +216,8 @@ export function pick<T = types.UnknownKeyValue>(
       theme.macros[prop as keyof types.Macros] ||
       theme.variants[prop as keyof types.Variants] ||
       theme.shorthands[prop as keyof types.Shorthands] ||
-      theme.properties[prop as keyof types.CSSProperties]
+      theme.properties[prop as keyof types.CSSProperties] ||
+      theme.customProperties[prop as keyof types.CustomProperties]
     ) {
       styles[prop] = props[prop] as types.SvbstrateStyleObject;
     } else {
