@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.6
+
+### Patch Changes
+
+- [`c7de5e7`](https://github.com/front-of-house/svbstrate/commit/c7de5e79887d91295d21ac0109cfbd19eedfd3c1) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Fix issue where merging presets would fool the checker into thinking all theme values were defined
+
 ## 0.0.5
 
 ### Patch Changes
