@@ -24,7 +24,7 @@ export interface PresetTokens {
   fontWeight: string[];
   lineHeight: number[];
 }
-export interface Tokens extends BaseTokens {}
+export interface Tokens {}
 
 export interface PresetShorthands {
   d: PropertyToTokenMapping<"display", "display">;
@@ -91,12 +91,12 @@ export interface Variants {}
 
 export type PropertyToTokenMapping<
   Prop extends keyof CSSProperties,
-  Token extends keyof Tokens
-> = ResponsiveValue<keyof Tokens[Token] | CSSProperties[Prop]>;
+  Token extends keyof BaseTokens
+> = ResponsiveValue<keyof BaseTokens[Token] | CSSProperties[Prop]>;
 
 export type SvbstrateCSSStyleObject = {
   [Property in keyof CSSProperties]?: ResponsiveValue<
-    Tokens[Property] | CSSProperties[Property]
+    BaseTokens[Property] | CSSProperties[Property]
   >;
 } & {
   top?: PropertyToTokenMapping<"top", "space">;
@@ -141,7 +141,9 @@ export interface ThemeConfig {
   tokens: {
     space?: Value[] | KeyValue;
   } & {
-    [Property in keyof CSSProperties]?: Value[] | KeyValue;
+    [Property in keyof BaseTokens]?: Value[] | KeyValue;
+  } & {
+    [Property in keyof Tokens]: Tokens[Property][] | Tokens[Property];
   };
   shorthands: {
     [shorthand: string]: (keyof CSSProperties)[];

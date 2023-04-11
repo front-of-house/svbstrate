@@ -6,6 +6,7 @@ declare module "../" {
       primary: "#ff4567";
       secondary: "#ff4567";
     };
+    other: [0, 1, 2];
   }
 
   interface Shorthands extends s.PresetShorthands {}
@@ -19,6 +20,7 @@ declare module "../" {
 
 const theme = s.createTheme({
   tokens: {
+    other: [0, 1, 2],
     color: {
       primary: "#ff4567",
       secondary: "#ff4567",
@@ -89,6 +91,7 @@ s.style(
       color: "primary",
     },
     w: 5,
+    other: 0,
   },
   theme
 );
