@@ -159,7 +159,7 @@ export interface ThemeConfig {
   properties: {
     [Property in keyof CSSProperties]?: {
       token?: keyof ThemeConfig["tokens"];
-      unit?(value: Value): string;
+      toValue?(value: Value): string;
     };
   };
 }

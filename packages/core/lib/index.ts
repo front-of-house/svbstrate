@@ -136,8 +136,8 @@ export function style(
         : unsignedValue; // tokenized rawValue
       const signedTokenized =
         typeof tokenized === "number" ? tokenized * signer : tokenized;
-      const computedValue = config.unit
-        ? config.unit(signedTokenized)
+      const computedValue = config.toValue
+        ? config.toValue(signedTokenized)
         : signedTokenized; // unitized value
 
       // drop undefined values, all others pass through

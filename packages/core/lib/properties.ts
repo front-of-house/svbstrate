@@ -17,43 +17,43 @@ export const properties: ThemeConfig["properties"] = {
   position: {},
   top: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   bottom: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   left: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   right: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   width: {
     token: "width",
-    unit: percentOrPixels,
+    toValue: percentOrPixels,
   },
   minWidth: {
     token: "width",
-    unit: percentOrPixels,
+    toValue: percentOrPixels,
   },
   maxWidth: {
     token: "width",
-    unit: percentOrPixels,
+    toValue: percentOrPixels,
   },
   height: {
     token: "height",
-    unit: percentOrPixels,
+    toValue: percentOrPixels,
   },
   minHeight: {
     token: "height",
-    unit: percentOrPixels,
+    toValue: percentOrPixels,
   },
   maxHeight: {
     token: "height",
-    unit: percentOrPixels,
+    toValue: percentOrPixels,
   },
   color: {
     token: "color",
@@ -81,51 +81,51 @@ export const properties: ThemeConfig["properties"] = {
   justifySelf: {},
   alignSelf: {},
   order: {
-    unit: string,
+    toValue: string,
   },
   margin: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   marginTop: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   marginBottom: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   marginLeft: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   marginRight: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   padding: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   paddingTop: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   paddingBottom: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   paddingLeft: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   paddingRight: {
     token: "space",
-    unit: pixels,
+    toValue: pixels,
   },
   zIndex: {
     token: "zIndex",
-    unit: string,
+    toValue: string,
   },
   fontSize: {
     token: "fontSize",
@@ -135,7 +135,7 @@ export const properties: ThemeConfig["properties"] = {
   },
   fontWeight: {
     token: "fontWeight",
-    unit: string,
+    toValue: string,
   },
   lineHeight: {
     token: "lineHeight",

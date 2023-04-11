@@ -72,12 +72,12 @@ for (const key of Object.keys(defaultCssProps)) {
   if (!property) continue;
 
   test(`props - ${key}`, () => {
-    const { unit, token } = property;
+    const { toValue, token } = property;
     const rawValue = 0;
     // @ts-expect-error
     const themeScale = token ? tokens[token] : undefined;
     const themeValue = themeScale ? themeScale[rawValue] : rawValue;
-    const parsedValue = unit ? unit(themeValue) : themeValue;
+    const parsedValue = toValue ? toValue(themeValue) : themeValue;
 
     const styles = style({ [key]: rawValue }, theme);
 
@@ -97,12 +97,12 @@ for (const key of Object.keys(shorthands)) {
     if (!property) continue;
 
     test(`shorthands - ${key}`, () => {
-      const { unit, token } = property;
+      const { toValue, token } = property;
       const rawValue = 0;
       // @ts-expect-error
       const themeScale = token ? tokens[token] : undefined;
       const themeValue = themeScale ? themeScale[rawValue] : rawValue;
-      const parsedValue = unit ? unit(themeValue) : themeValue;
+      const parsedValue = toValue ? toValue(themeValue) : themeValue;
 
       const styles = style({ [prop]: rawValue }, theme);
 
