@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.8
+
+### Patch Changes
+
+- [`8f46050`](https://github.com/front-of-house/svbstrate/commit/8f46050343db771eb73fd05efea3785c1c3fc757) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Fix bug in `pick` where `customProperties` weren't included, plus widen `customProperties` value to `SvbstrateValue`
+
 ## 0.0.7
 
 ### Patch Changes
