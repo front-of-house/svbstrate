@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.10
+
+### Patch Changes
+
+- [`4407598`](https://github.com/front-of-house/svbstrate/commit/44075984839cb4872821f1493e78b64785462384) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Map `bg` to `backgroundColor` for better cross-platform support
+
 ## 0.0.9
 
 ### Patch Changes
