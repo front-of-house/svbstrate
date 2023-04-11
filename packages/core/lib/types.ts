@@ -168,7 +168,7 @@ export interface ThemeConfig {
   properties: {
     [Property in keyof CSSProperties]?: {
       token?: keyof ThemeConfig["tokens"];
-      toValue?(value: Value): string | number;
+      toValue?(value: Value): SvbstrateValue;
     };
   };
 }
