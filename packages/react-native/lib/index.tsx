@@ -64,7 +64,7 @@ export const Box = React.forwardRef(({ children, as, ...rest }, ref) => {
   if (debug) {
     console.log(
       `@svbstrate/react-native [debug] `,
-      JSON.stringify(styles, null, 2)
+      JSON.stringify({ styles: mergedStyles, props }, null, 2)
     );
   }
 
