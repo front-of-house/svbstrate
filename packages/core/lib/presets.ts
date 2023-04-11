@@ -1,12 +1,14 @@
-import { ThemeConfig } from "./types";
+import * as types from "./types";
 
-export const breakpoints: ThemeConfig["breakpoints"] = [
+export const breakpoints: types.ThemeConfig["breakpoints"] = [
   "400px",
   "800px",
   "1200px",
 ];
 
-export const tokens: ThemeConfig["tokens"] = {
+export const tokens: {
+  [Token in keyof types.PresetTokens]: types.PresetTokens[Token];
+} = {
   space: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64],
   fontSize: ["3rem", "3rem", "2.2rem", "1.8rem", "1.4rem", "1rem", "0.875rem"],
   fontWeight: [
@@ -25,7 +27,9 @@ export const tokens: ThemeConfig["tokens"] = {
   lineHeight: [1.1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6],
 };
 
-export const shorthands: ThemeConfig["shorthands"] = {
+export const shorthands: {
+  [Shorthand in keyof types.PresetShorthands]: (keyof types.CSSProperties)[];
+} = {
   d: ["display"],
   w: ["width"],
   h: ["height"],
@@ -53,7 +57,9 @@ export const shorthands: ThemeConfig["shorthands"] = {
   ta: ["textAlign"],
 };
 
-export const macros: ThemeConfig["macros"] = {
+export const macros: {
+  [Macro in keyof types.PresetMacros]: types.SvbstrateCSSStyleObject;
+} = {
   db: { display: "block" },
   dib: { display: "inline-block" },
   di: { display: "inline" },
