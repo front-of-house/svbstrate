@@ -1,5 +1,13 @@
 # @svbstrate/core
 
+## 0.0.9
+
+### Patch Changes
+
+- [`fcae57c`](https://github.com/front-of-house/svbstrate/commit/fcae57c1113deaf4ddd085b371015225633d6660) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Widen return type for `toValue`
+
+- [`929fea9`](https://github.com/front-of-house/svbstrate/commit/929fea91f349c27d1cf0f4d2030376c149989aee) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Allow `toValue` to return numbers
+
 ## 0.0.8
 
 ### Patch Changes
