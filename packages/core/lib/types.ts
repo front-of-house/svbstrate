@@ -27,31 +27,31 @@ export interface PresetTokens {
 export interface Tokens {}
 
 export interface PresetShorthands {
-  d: PropertyToTokenMapping<"display", "display">;
-  w: PropertyToTokenMapping<"width", "width">;
-  h: PropertyToTokenMapping<"height", "height">;
-  c: PropertyToTokenMapping<"color", "color">;
-  bg: PropertyToTokenMapping<"backgroundColor", "color">;
-  m: PropertyToTokenMapping<"margin", "space">;
-  mt: PropertyToTokenMapping<"marginTop", "space">;
-  mb: PropertyToTokenMapping<"marginBottom", "space">;
-  ml: PropertyToTokenMapping<"marginLeft", "space">;
-  mr: PropertyToTokenMapping<"marginRight", "space">;
-  my: PropertyToTokenMapping<"marginTop", "space">;
-  mx: PropertyToTokenMapping<"marginLeft", "space">;
-  pa: PropertyToTokenMapping<"padding", "space">;
-  pt: PropertyToTokenMapping<"paddingTop", "space">;
-  pb: PropertyToTokenMapping<"paddingBottom", "space">;
-  pl: PropertyToTokenMapping<"paddingLeft", "space">;
-  pr: PropertyToTokenMapping<"paddingRight", "space">;
-  py: PropertyToTokenMapping<"paddingTop", "space">;
-  px: PropertyToTokenMapping<"paddingLeft", "space">;
-  z: PropertyToTokenMapping<"zIndex", "zIndex">;
-  fs: PropertyToTokenMapping<"fontSize", "fontSize">;
-  ff: PropertyToTokenMapping<"fontFamily", "fontFamily">;
-  fw: PropertyToTokenMapping<"fontWeight", "fontWeight">;
-  lh: PropertyToTokenMapping<"lineHeight", "lineHeight">;
-  ta: PropertyToTokenMapping<"textAlign", "textAlign">;
+  d: MapShorthandToToken<"display", "display">;
+  w: MapShorthandToToken<"width", "width">;
+  h: MapShorthandToToken<"height", "height">;
+  c: MapShorthandToToken<"color", "color">;
+  bg: MapShorthandToToken<"backgroundColor", "color">;
+  m: MapShorthandToToken<"margin", "space">;
+  mt: MapShorthandToToken<"marginTop", "space">;
+  mb: MapShorthandToToken<"marginBottom", "space">;
+  ml: MapShorthandToToken<"marginLeft", "space">;
+  mr: MapShorthandToToken<"marginRight", "space">;
+  my: MapShorthandToToken<"marginTop", "space">;
+  mx: MapShorthandToToken<"marginLeft", "space">;
+  pa: MapShorthandToToken<"padding", "space">;
+  pt: MapShorthandToToken<"paddingTop", "space">;
+  pb: MapShorthandToToken<"paddingBottom", "space">;
+  pl: MapShorthandToToken<"paddingLeft", "space">;
+  pr: MapShorthandToToken<"paddingRight", "space">;
+  py: MapShorthandToToken<"paddingTop", "space">;
+  px: MapShorthandToToken<"paddingLeft", "space">;
+  z: MapShorthandToToken<"zIndex", "zIndex">;
+  fs: MapShorthandToToken<"fontSize", "fontSize">;
+  ff: MapShorthandToToken<"fontFamily", "fontFamily">;
+  fw: MapShorthandToToken<"fontWeight", "fontWeight">;
+  lh: MapShorthandToToken<"lineHeight", "lineHeight">;
+  ta: MapShorthandToToken<"textAlign", "textAlign">;
 }
 export interface Shorthands {}
 
@@ -89,7 +89,7 @@ export interface Macros {}
 export interface PresetVariants {} // unused
 export interface Variants {}
 
-export type PropertyToTokenMapping<
+export type MapShorthandToToken<
   Prop extends keyof CSSProperties,
   Token extends keyof BaseTokens
 > = ResponsiveValue<keyof BaseTokens[Token] | CSSProperties[Prop]>;
@@ -99,20 +99,20 @@ export type SvbstrateCSSStyleObject = {
     BaseTokens[Property] | CSSProperties[Property]
   >;
 } & {
-  top?: PropertyToTokenMapping<"top", "space">;
-  bottom?: PropertyToTokenMapping<"bottom", "space">;
-  left?: PropertyToTokenMapping<"left", "space">;
-  right?: PropertyToTokenMapping<"right", "space">;
-  margin?: PropertyToTokenMapping<"margin", "space">;
-  marginTop?: PropertyToTokenMapping<"marginTop", "space">;
-  marginBottom?: PropertyToTokenMapping<"marginBottom", "space">;
-  marginLeft?: PropertyToTokenMapping<"marginLeft", "space">;
-  marginRight?: PropertyToTokenMapping<"marginRight", "space">;
-  padding?: PropertyToTokenMapping<"padding", "space">;
-  paddingTop?: PropertyToTokenMapping<"paddingTop", "space">;
-  paddingBottom?: PropertyToTokenMapping<"paddingBottom", "space">;
-  paddingLeft?: PropertyToTokenMapping<"paddingLeft", "space">;
-  paddingRight?: PropertyToTokenMapping<"paddingRight", "space">;
+  top?: MapShorthandToToken<"top", "space">;
+  bottom?: MapShorthandToToken<"bottom", "space">;
+  left?: MapShorthandToToken<"left", "space">;
+  right?: MapShorthandToToken<"right", "space">;
+  margin?: MapShorthandToToken<"margin", "space">;
+  marginTop?: MapShorthandToToken<"marginTop", "space">;
+  marginBottom?: MapShorthandToToken<"marginBottom", "space">;
+  marginLeft?: MapShorthandToToken<"marginLeft", "space">;
+  marginRight?: MapShorthandToToken<"marginRight", "space">;
+  padding?: MapShorthandToToken<"padding", "space">;
+  paddingTop?: MapShorthandToToken<"paddingTop", "space">;
+  paddingBottom?: MapShorthandToToken<"paddingBottom", "space">;
+  paddingLeft?: MapShorthandToToken<"paddingLeft", "space">;
+  paddingRight?: MapShorthandToToken<"paddingRight", "space">;
 } & Partial<Shorthands>;
 
 export type SvbstratePsuedoStyleObject = {
@@ -146,14 +146,14 @@ export interface ThemeConfig {
     [Property in keyof Tokens]: Tokens[Property][] | Tokens[Property];
   };
   shorthands: {
-    [shorthand: string]: (keyof CSSProperties)[];
+    [Shorthand in keyof Shorthands]: (keyof CSSProperties)[];
   };
   macros: {
-    [macro: string]: SvbstrateCSSStyleObject;
+    [Macro in keyof Macros]: SvbstrateCSSStyleObject;
   };
   variants: {
-    [variation: string]: {
-      [name: string]: SvbstrateStyleObject;
+    [Variant in keyof Variants]: {
+      [Value in Variants[Variant]]: SvbstrateStyleObject;
     };
   };
   properties: {

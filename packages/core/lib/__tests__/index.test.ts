@@ -1,6 +1,7 @@
 import { test, expect } from "vitest";
 
 import { createTheme, explode, style, pick } from "../";
+import * as types from "../types";
 import { properties as defaultCssProps } from "../properties";
 import * as defaults from "../presets";
 
@@ -85,7 +86,9 @@ for (const key of Object.keys(defaultCssProps)) {
 }
 
 for (const key of Object.keys(shorthands)) {
-  const properties = ([] as string[]).concat(shorthands[key]);
+  const properties = ([] as string[]).concat(
+    shorthands[key as keyof types.Shorthands]
+  );
 
   for (const prop of properties) {
     // @ts-expect-error
