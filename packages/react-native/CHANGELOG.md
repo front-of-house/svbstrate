@@ -1,5 +1,14 @@
 # @svbstrate/react-native
 
+## 0.0.9
+
+### Patch Changes
+
+- [`bc10662`](https://github.com/front-of-house/svbstrate/commit/bc106628a044583d1344bb5315d3a763883ee4ba) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Remap default properties for platform support i.e. width can be a `number` or `${string}pt`
+
+- Updated dependencies [[`4407598`](https://github.com/front-of-house/svbstrate/commit/44075984839cb4872821f1493e78b64785462384)]:
+  - @svbstrate/core@0.0.10
+
 ## 0.0.8
 
 ### Patch Changes
