@@ -34,7 +34,7 @@ export const shorthands: {
   w: ["width"],
   h: ["height"],
   c: ["color"],
-  bg: ["background"],
+  bg: ["backgroundColor"],
   m: ["marginTop", "marginBottom", "marginLeft", "marginRight"],
   mt: ["marginTop"],
   mb: ["marginBottom"],

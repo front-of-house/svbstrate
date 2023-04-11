@@ -222,7 +222,7 @@ test("variants", () => {
       },
       card: {
         large: {
-          background: "white",
+          backgroundColor: "white",
           // testing nested object
           ".button": {
             c: "red",
@@ -241,7 +241,7 @@ test("variants", () => {
   );
 
   expect(styles.color).toEqual("blue");
-  expect(styles.background).toEqual("whitesmoke");
+  expect(styles.backgroundColor).toEqual("whitesmoke");
 });
 
 test("breakpoints", () => {
