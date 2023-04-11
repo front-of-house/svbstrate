@@ -13,18 +13,27 @@ export function explode(
   let styles: types.SvbstrateStyleObject = {};
 
   for (const [prop, value] of Object.entries(props)) {
-    if (theme.macros[prop] && typeof value === "boolean") {
+    if (
+      theme.macros[prop as keyof types.Macros] &&
+      typeof value === "boolean"
+    ) {
       /*
        * Macro exists and is true, merge it in. If false, just drop it, hence
        * the typeof check above.
        */
       if (value)
-        Object.assign(styles, theme.macros[prop] as types.SvbstrateStyleObject);
-    } else if (theme.variants[prop]) {
+        Object.assign(
+          styles,
+          theme.macros[prop as keyof types.Macros] as types.SvbstrateStyleObject
+        );
+    } else if (theme.variants[prop as keyof types.Variants]) {
       /*
        * Variant exists, merge it in.
        */
-      Object.assign(styles, theme.variants[prop][value as string]);
+      Object.assign(
+        styles,
+        theme.variants[prop as keyof types.Variants][value as string]
+      );
     } else if (typeof value === "object" && !Array.isArray(value)) {
       /*
        * If we have some other object here, we need to recurse.
@@ -43,7 +52,9 @@ export function explode(
    * values
    */
   for (const [prop, value] of Object.entries(styles)) {
-    const cssProperties = theme.shorthands[prop];
+    const cssProperties = theme.shorthands[prop as keyof types.Shorthands] as
+      | string[]
+      | undefined;
 
     if (cssProperties && cssProperties.length) {
       for (const property of cssProperties) {
@@ -190,11 +201,10 @@ export function pick<T = types.UnknownKeyValue>(
 
   for (const prop of Object.keys(props)) {
     if (
-      theme.macros[prop] ||
-      theme.variants[prop] ||
-      theme.shorthands[prop] ||
-      // @ts-ignore
-      theme.properties[prop]
+      theme.macros[prop as keyof types.Macros] ||
+      theme.variants[prop as keyof types.Variants] ||
+      theme.shorthands[prop as keyof types.Shorthands] ||
+      theme.properties[prop as keyof types.CSSProperties]
     ) {
       styles[prop] = props[prop] as types.SvbstrateStyleObject;
     } else {

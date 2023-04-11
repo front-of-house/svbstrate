@@ -1,6 +1,6 @@
 import * as svbstrate from "@svbstrate/core";
 import React from "react";
-import { View, Text, ViewProps } from "react-native";
+import { View, ViewProps } from "react-native";
 import * as Polymorphic from "@radix-ui/react-polymorphic";
 
 export type Theme = Partial<svbstrate.ThemeConfig>;
@@ -68,7 +68,7 @@ export const Box = React.forwardRef(({ children, as, ...rest }, ref) => {
     );
   }
 
-  const Component = as || (typeof children === "string" ? Text : View);
+  const Component = as || View;
 
   return (
     // @ts-ignore
@@ -77,6 +77,7 @@ export const Box = React.forwardRef(({ children, as, ...rest }, ref) => {
       {...props}
       style={{
         ...mergedStyles,
+        // override with user-defined styles
         ...(typeof props.style === "object" ? props.style : {}),
       }}
     >
