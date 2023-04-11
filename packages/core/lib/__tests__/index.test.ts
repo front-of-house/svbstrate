@@ -408,3 +408,29 @@ test("issue #7", async () => {
     "@media (min-width: 400px)": { color: "red", background: "tomato" },
   });
 });
+
+test("customProperties", () => {
+  const custom = createTheme({
+    tokens: {
+      color: {
+        primary: "blue",
+      },
+    },
+    customProperties: {
+      // @ts-expect-error un-typed custom property
+      shadow(value, theme) {
+        return {
+          boxShadow: `0 0 0 1px ${theme.color[value]}`,
+        };
+      },
+    },
+  });
+  const styles = style(
+    {
+      shadow: "primary",
+    },
+    custom
+  );
+
+  expect(styles.boxShadow).toEqual(`0 0 0 1px blue`);
+});

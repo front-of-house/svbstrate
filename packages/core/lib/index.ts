@@ -34,6 +34,18 @@ export function explode(
         styles,
         theme.variants[prop as keyof types.Variants][value as string]
       );
+    } else if (theme.customProperties[prop as keyof types.CustomProperties]) {
+      /*
+       * Custom property exists, merge it in.
+       */
+      Object.assign(
+        styles,
+        // @ts-expect-error
+        theme.customProperties[prop as keyof types.CustomProperties](
+          value,
+          theme.tokens
+        )
+      );
     } else if (typeof value === "object" && !Array.isArray(value)) {
       /*
        * If we have some other object here, we need to recurse.
@@ -230,6 +242,7 @@ export function createTheme(
     shorthands: Object.assign({}, theme.shorthands || {}),
     macros: Object.assign({}, theme.macros || {}),
     variants: Object.assign({}, theme.variants || {}),
+    customProperties: Object.assign({}, theme.customProperties || {}),
     properties: Object.assign({}, cssProperties, theme.properties),
   };
 }

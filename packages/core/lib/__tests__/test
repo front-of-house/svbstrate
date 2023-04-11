@@ -21,6 +21,10 @@ declare module "../" {
   interface Variants {
     btn: "primary" | "secondary";
   }
+
+  interface CustomProperties {
+    shadow: 'large' | 'small'
+  }
 }
 
 const theme = s.createTheme({
@@ -59,6 +63,12 @@ const theme = s.createTheme({
       },
     },
   },
+  customProperties: {
+    shadow(value, theme) {
+      return {
+      }
+    }
+  }
 });
 
 s.style(
@@ -79,7 +89,8 @@ s.style(
     },
     w: 5,
     other: 0,
-    row: false
+    row: false,
+    shadow: 'large'
   },
   theme
 );
