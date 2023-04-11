@@ -89,6 +89,8 @@ export interface Macros {}
 export interface PresetVariants {} // unused
 export interface Variants {}
 
+export interface CustomProperties {}
+
 export type MapShorthandToToken<
   Prop extends keyof CSSProperties,
   Token extends keyof BaseTokens
@@ -113,7 +115,8 @@ export type SvbstrateCSSStyleObject = {
   paddingBottom?: MapShorthandToToken<"paddingBottom", "space">;
   paddingLeft?: MapShorthandToToken<"paddingLeft", "space">;
   paddingRight?: MapShorthandToToken<"paddingRight", "space">;
-} & Partial<Shorthands>;
+} & Partial<Shorthands> &
+  Partial<CustomProperties>;
 
 export type SvbstratePsuedoStyleObject = {
   // psuedo selector blocks
@@ -156,10 +159,16 @@ export interface ThemeConfig {
       [Value in Variants[Variant]]: SvbstrateStyleObject;
     };
   };
+  customProperties: {
+    [Property in keyof CustomProperties]: (
+      value: Value,
+      theme: Tokens
+    ) => SvbstrateStyleObject;
+  };
   properties: {
     [Property in keyof CSSProperties]?: {
       token?: keyof ThemeConfig["tokens"];
-      unit?(value: Value): string;
+      toValue?(value: Value): string;
     };
   };
 }

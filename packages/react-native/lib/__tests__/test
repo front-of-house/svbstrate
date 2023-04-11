@@ -9,6 +9,10 @@ declare module '@svbstrate/core' {
       secondary: "#ff4567";
     };
   }
+
+  interface Variants {
+    shadow: 'large' | 'small'
+  }
 }
 
 function App() {
@@ -21,9 +25,14 @@ function App() {
             secondary: "#ff4567",
           },
           space: [],
+        },
+        variants: {
+          shadow(value, theme) {
+            return value
+          }
         }
       }}>
-        <Box as={Box} cx={theme => ({ color: theme.color.primary })}>Hello</Box>
+        <Box as={Box}>Hello</Box>
       </ThemeProvider>
     </>
   )
