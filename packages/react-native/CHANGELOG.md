@@ -1,5 +1,14 @@
 # @svbstrate/react-native
 
+## 0.0.3
+
+### Patch Changes
+
+- [#6](https://github.com/front-of-house/svbstrate/pull/6) [`2af9786`](https://github.com/front-of-house/svbstrate/commit/2af97866560b8729021ad29c226591e028c99f8d) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Update `package.json`s to use `exports` field
+
+- Updated dependencies [[`2af9786`](https://github.com/front-of-house/svbstrate/commit/2af97866560b8729021ad29c226591e028c99f8d)]:
+  - @svbstrate/core@0.0.4
+
 ## 0.0.2
 
 ### Patch Changes
