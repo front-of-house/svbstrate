@@ -5,8 +5,6 @@ import * as Polymorphic from "@radix-ui/react-polymorphic";
 
 export type Theme = Partial<svbstrate.ThemeConfig>;
 
-export { createTheme } from "@svbstrate/core";
-
 export type BoxPropsBase = {
   cx?:
     | svbstrate.SvbstrateStyleObject
