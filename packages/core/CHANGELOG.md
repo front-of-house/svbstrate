@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.11
+
+### Patch Changes
+
+- [`6e0e594`](https://github.com/front-of-house/svbstrate/commit/6e0e59483bec2f887b8ef87972582550c29794af) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Remove `exports` field. Not compatible with React Native atm.
+
 ## 0.0.10
 
 ### Patch Changes

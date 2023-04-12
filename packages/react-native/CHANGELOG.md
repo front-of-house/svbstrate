@@ -1,5 +1,14 @@
 # @svbstrate/react-native
 
+## 0.0.10
+
+### Patch Changes
+
+- [`e069f39`](https://github.com/front-of-house/svbstrate/commit/e069f3946e90ecd91f0ea5addc95ba449b6b8e13) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Attempt to fix React Native import issues by publishing ESM exports.
+
+- Updated dependencies [[`6e0e594`](https://github.com/front-of-house/svbstrate/commit/6e0e59483bec2f887b8ef87972582550c29794af)]:
+  - @svbstrate/core@0.0.11
+
 ## 0.0.9
 
 ### Patch Changes
