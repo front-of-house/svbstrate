@@ -1,13 +1,22 @@
 const path = require("path");
 
-require("esbuild").buildSync({
+const options = {
   entryPoints: ["lib/index.tsx"],
-  outdir: path.join(__dirname, "../dist"),
   bundle: true,
-  platform: "node",
-  target: "es2015",
-  minify: true,
   sourcemap: true,
+  minify: true,
   logLevel: "info",
   external: ["react", "react-native"],
+};
+
+require("esbuild").buildSync({
+  format: "cjs",
+  outfile: path.join(__dirname, "../dist/index.cjs.js"),
+  ...options,
+});
+
+require("esbuild").buildSync({
+  format: "esm",
+  outfile: path.join(__dirname, "../dist/index.esm.js"),
+  ...options,
 });
