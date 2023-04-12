@@ -6,7 +6,7 @@
     "target": "es2021",
     "lib": ["es2021"],
     "module": "es2022",
-    "moduleResolution": "node16",
+    "moduleResolution": "node",
     "types": ["vite/client"],
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
