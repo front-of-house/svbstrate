@@ -116,7 +116,9 @@ export type SvbstrateCSSStyleObject = {
   paddingLeft?: MapShorthandToToken<"paddingLeft", "space">;
   paddingRight?: MapShorthandToToken<"paddingRight", "space">;
 } & Partial<Shorthands> &
-  Partial<CustomProperties>;
+  Partial<CustomProperties> &
+  Partial<Macros> &
+  Partial<Variants>;
 
 export type SvbstratePsuedoStyleObject = {
   // psuedo selector blocks
@@ -135,8 +137,6 @@ export type SvbstrateMiscStyleObject = {
 export type SvbstrateStyleObject = SvbstrateCSSStyleObject &
   SvbstratePsuedoStyleObject &
   SvbstrateHTMLStyleObject &
-  Partial<Macros> &
-  Partial<Variants> &
   SvbstrateMiscStyleObject;
 
 export interface ThemeConfig {

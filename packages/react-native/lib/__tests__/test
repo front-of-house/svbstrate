@@ -27,12 +27,15 @@ function App() {
           space: [],
         },
         variants: {
-          shadow(value, theme) {
-            return value
+          shadow: {
+            large: {
+            },
+            small: {
+            },
           }
         }
       }}>
-        <Box as={Box}>Hello</Box>
+        <Box as={Box} color='primary' shadow='large'>Hello</Box>
       </ThemeProvider>
     </>
   )
