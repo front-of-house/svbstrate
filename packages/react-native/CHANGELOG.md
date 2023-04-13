@@ -1,5 +1,11 @@
 # @svbstrate/react-native
 
+## 0.0.14
+
+### Patch Changes
+
+- [`11ecc51`](https://github.com/front-of-house/svbstrate/commit/11ecc51cccf87545c1d55e447222a8244ee7936f) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Fix theme creation in ThemeProvider
+
 ## 0.0.13
 
 ### Patch Changes
