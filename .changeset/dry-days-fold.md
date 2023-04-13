@@ -2,4 +2,4 @@
 "@svbstrate/react-native": patch
 ---
 
-Specify a `react-native` field in `package.json`
+Update build step to _not_ bundle files, simply transform and output to `dist`

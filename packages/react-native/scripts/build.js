@@ -2,11 +2,8 @@ const path = require("path");
 
 const options = {
   entryPoints: ["lib/index.tsx"],
-  bundle: true,
   sourcemap: true,
-  minify: true,
   logLevel: "info",
-  external: ["react", "react-native"],
 };
 
 require("esbuild").buildSync({
