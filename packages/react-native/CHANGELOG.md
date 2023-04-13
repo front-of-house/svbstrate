@@ -1,5 +1,11 @@
 # @svbstrate/react-native
 
+## 0.0.11
+
+### Patch Changes
+
+- [`97bb7bc`](https://github.com/front-of-house/svbstrate/commit/97bb7bcaa49e2dc269f2c02ef1698c4d7ff5f618) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Update build step to _not_ bundle files, simply transform and output to `dist`
+
 ## 0.0.10
 
 ### Patch Changes
