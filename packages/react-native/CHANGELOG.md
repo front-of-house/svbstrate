@@ -1,5 +1,11 @@
 # @svbstrate/react-native
 
+## 0.0.12
+
+### Patch Changes
+
+- [`ef0ca90`](https://github.com/front-of-house/svbstrate/commit/ef0ca90f319913a3c53bb6b484cec28ed0aafb06) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Update `tsconfig.json` to use `react` instead of `react-native`, which ensures that JSX is transformed
+
 ## 0.0.11
 
 ### Patch Changes
