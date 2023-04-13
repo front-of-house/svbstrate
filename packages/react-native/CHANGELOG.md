@@ -1,5 +1,14 @@
 # @svbstrate/react-native
 
+## 0.0.13
+
+### Patch Changes
+
+- [`d0bca91`](https://github.com/front-of-house/svbstrate/commit/d0bca916ac0b643f2b578c1d552f62579e934cd2) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Fix variant and macro types
+
+- Updated dependencies [[`d0bca91`](https://github.com/front-of-house/svbstrate/commit/d0bca916ac0b643f2b578c1d552f62579e934cd2)]:
+  - @svbstrate/core@0.0.12
+
 ## 0.0.12
 
 ### Patch Changes

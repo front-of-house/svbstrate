@@ -1,6 +1,6 @@
 {
   "name": "@svbstrate/react-native",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/front-of-house/monorepo#readme",
   "dependencies": {
     "@radix-ui/react-polymorphic": "^0.0.14",
-    "@svbstrate/core": "workspace:^0.0.11"
+    "@svbstrate/core": "workspace:^0.0.12"
   },
   "peerDependencies": {
     "react": "*",
