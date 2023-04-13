@@ -35,7 +35,7 @@ function App() {
           }
         }
       }}>
-        <Box as={Box} color='primary' shadow='large'>Hello</Box>
+        <Box as={Box} color='primary' shadow='large' style={{}}>Hello</Box>
       </ThemeProvider>
     </>
   )

@@ -98,7 +98,7 @@ export function ThemeProvider(
         ...props.theme,
         properties: {
           ...defaultProperties,
-          ...(props.theme.properties || {}),
+          ...(props.theme?.properties || {}),
         },
       }),
     },
