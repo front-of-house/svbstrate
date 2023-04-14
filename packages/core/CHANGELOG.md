@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.13
+
+### Patch Changes
+
+- [`fc199f7`](https://github.com/front-of-house/svbstrate/commit/fc199f799c2fc56910cc5e67bc7d56de9f261a3e) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Tighten up types, namely space-scale properties. Ensures autocomplete should work in most IDEs.
+
 ## 0.0.12
 
 ### Patch Changes
