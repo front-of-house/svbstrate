@@ -3,8 +3,6 @@ import React from "react";
 import { View, ViewProps } from "react-native";
 import * as Polymorphic from "@radix-ui/react-polymorphic";
 
-export * as presets from "@svbstrate/core/dist/presets";
-
 const defaultProperties: svbstrate.ThemeConfig["properties"] = {
   width: {
     token: "width",
