@@ -1,59 +1,48 @@
 import { ThemeConfig } from "./types";
-
-export function string(v: string | number) {
-  return v + "";
-}
-
-export function pixels(v: string | number) {
-  return typeof v === "number" ? v + "px" : v;
-}
-
-export function percentOrPixels(v: string | number) {
-  return typeof v === "number" ? (v <= 1 ? v * 100 + "%" : v + "px") : v;
-}
+import { toString, toPixels, toPercent } from "./utils";
 
 export const properties: ThemeConfig["properties"] = {
   display: {},
   position: {},
   top: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   bottom: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   left: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   right: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   width: {
     token: "width",
-    toValue: percentOrPixels,
+    toValue: (v) => toPixels(toPercent(v)),
   },
   minWidth: {
     token: "width",
-    toValue: percentOrPixels,
+    toValue: (v) => toPixels(toPercent(v)),
   },
   maxWidth: {
     token: "width",
-    toValue: percentOrPixels,
+    toValue: (v) => toPixels(toPercent(v)),
   },
   height: {
     token: "height",
-    toValue: percentOrPixels,
+    toValue: (v) => toPixels(toPercent(v)),
   },
   minHeight: {
     token: "height",
-    toValue: percentOrPixels,
+    toValue: (v) => toPixels(toPercent(v)),
   },
   maxHeight: {
     token: "height",
-    toValue: percentOrPixels,
+    toValue: (v) => toPixels(toPercent(v)),
   },
   color: {
     token: "color",
@@ -81,51 +70,51 @@ export const properties: ThemeConfig["properties"] = {
   justifySelf: {},
   alignSelf: {},
   order: {
-    toValue: string,
+    toValue: toString,
   },
   margin: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   marginTop: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   marginBottom: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   marginLeft: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   marginRight: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   padding: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   paddingTop: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   paddingBottom: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   paddingLeft: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   paddingRight: {
     token: "space",
-    toValue: pixels,
+    toValue: toPixels,
   },
   zIndex: {
     token: "zIndex",
-    toValue: string,
+    toValue: toString,
   },
   fontSize: {
     token: "fontSize",
@@ -135,7 +124,7 @@ export const properties: ThemeConfig["properties"] = {
   },
   fontWeight: {
     token: "fontWeight",
-    toValue: string,
+    toValue: toString,
   },
   lineHeight: {
     token: "lineHeight",

@@ -12,6 +12,7 @@ export default defineConfig({
       entry: [
         resolve(__dirname, "lib/index.ts"),
         resolve(__dirname, "lib/presets.ts"),
+        resolve(__dirname, "lib/utils.ts"),
       ],
       formats: ["cjs"],
     },
