@@ -2,7 +2,7 @@
   "private": true,
   "name": "@svbstrate/monorepo",
   "scripts": {
-    "test": "pnpm -r t",
+    "test": "pnpm build && pnpm -r t",
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "lint": "prettier --check .",
