@@ -8,9 +8,9 @@ export type KeyValue = Record<string, Value>;
 export type UnknownKeyValue = Record<string, unknown>;
 
 export interface CSSProperties
-  extends CSS.StandardProperties<number | string>,
-    CSS.SvgProperties<number | string>,
-    CSS.VendorProperties<number | string> {}
+  extends CSS.StandardProperties<(string & {}) | number>,
+    CSS.SvgProperties<(string & {}) | number>,
+    CSS.VendorProperties<(string & {}) | number> {}
 
 export type BaseTokens = {
   space?: Value[] | KeyValue;
@@ -18,40 +18,40 @@ export type BaseTokens = {
   [Property in keyof CSSProperties]?: Value[] | KeyValue;
 };
 
-export interface PresetTokens {
+export interface PresetTokens extends BaseTokens {
   space: number[];
   fontSize: string[];
   fontWeight: string[];
   lineHeight: number[];
 }
-export interface Tokens {}
+export interface Tokens extends BaseTokens {}
 
 export interface PresetShorthands {
-  d: MapShorthandToToken<"display", "display">;
-  w: MapShorthandToToken<"width", "width">;
-  h: MapShorthandToToken<"height", "height">;
-  c: MapShorthandToToken<"color", "color">;
-  bg: MapShorthandToToken<"backgroundColor", "color">;
-  m: MapShorthandToToken<"margin", "space">;
-  mt: MapShorthandToToken<"marginTop", "space">;
-  mb: MapShorthandToToken<"marginBottom", "space">;
-  ml: MapShorthandToToken<"marginLeft", "space">;
-  mr: MapShorthandToToken<"marginRight", "space">;
-  my: MapShorthandToToken<"marginTop", "space">;
-  mx: MapShorthandToToken<"marginLeft", "space">;
-  pa: MapShorthandToToken<"padding", "space">;
-  pt: MapShorthandToToken<"paddingTop", "space">;
-  pb: MapShorthandToToken<"paddingBottom", "space">;
-  pl: MapShorthandToToken<"paddingLeft", "space">;
-  pr: MapShorthandToToken<"paddingRight", "space">;
-  py: MapShorthandToToken<"paddingTop", "space">;
-  px: MapShorthandToToken<"paddingLeft", "space">;
-  z: MapShorthandToToken<"zIndex", "zIndex">;
-  fs: MapShorthandToToken<"fontSize", "fontSize">;
-  ff: MapShorthandToToken<"fontFamily", "fontFamily">;
-  fw: MapShorthandToToken<"fontWeight", "fontWeight">;
-  lh: MapShorthandToToken<"lineHeight", "lineHeight">;
-  ta: MapShorthandToToken<"textAlign", "textAlign">;
+  d: MapPropertyToToken<"display", "display">;
+  w: MapPropertyToToken<"width", "width">;
+  h: MapPropertyToToken<"height", "height">;
+  c: MapPropertyToToken<"color", "color">;
+  bg: MapPropertyToToken<"backgroundColor", "color">;
+  ma: MapPropertyToToken<"margin", "space">;
+  mt: MapPropertyToToken<"marginTop", "space">;
+  mb: MapPropertyToToken<"marginBottom", "space">;
+  ml: MapPropertyToToken<"marginLeft", "space">;
+  mr: MapPropertyToToken<"marginRight", "space">;
+  my: MapPropertyToToken<"marginTop", "space">;
+  mx: MapPropertyToToken<"marginLeft", "space">;
+  pa: MapPropertyToToken<"padding", "space">;
+  pt: MapPropertyToToken<"paddingTop", "space">;
+  pb: MapPropertyToToken<"paddingBottom", "space">;
+  pl: MapPropertyToToken<"paddingLeft", "space">;
+  pr: MapPropertyToToken<"paddingRight", "space">;
+  py: MapPropertyToToken<"paddingTop", "space">;
+  px: MapPropertyToToken<"paddingLeft", "space">;
+  z: MapPropertyToToken<"zIndex", "zIndex">;
+  fs: MapPropertyToToken<"fontSize", "fontSize">;
+  ff: MapPropertyToToken<"fontFamily", "fontFamily">;
+  fw: MapPropertyToToken<"fontWeight", "fontWeight">;
+  lh: MapPropertyToToken<"lineHeight", "lineHeight">;
+  ta: MapPropertyToToken<"textAlign", "textAlign">;
 }
 export interface Shorthands {}
 
@@ -72,15 +72,10 @@ export interface PresetMacros {
   rel: boolean;
   abs: boolean;
   fix: boolean;
-  top: boolean;
-  bottom: boolean;
-  left: boolean;
-  right: boolean;
   cover: boolean;
   tac: boolean;
   tar: boolean;
   taj: boolean;
-  ma: boolean;
   mxa: boolean;
   mya: boolean;
 }
@@ -91,30 +86,47 @@ export interface Variants {}
 
 export interface CustomProperties {}
 
-export type MapShorthandToToken<
+export type MapPropertyToToken<
   Prop extends keyof CSSProperties,
-  Token extends keyof BaseTokens
-> = ResponsiveValue<keyof BaseTokens[Token] | CSSProperties[Prop]>;
+  Token extends keyof Tokens
+> = ResponsiveValue<keyof Tokens[Token] | CSSProperties[Prop]>;
+
+type OverriddenProperties =
+  | "top"
+  | "bottom"
+  | "left"
+  | "right"
+  | "padding"
+  | "paddingLeft"
+  | "paddingRight"
+  | "paddingTop"
+  | "paddingBottom"
+  | "margin"
+  | "marginLeft"
+  | "marginRight"
+  | "marginTop"
+  | "marginBottom";
 
 export type SvbstrateCSSStyleObject = {
-  [Property in keyof CSSProperties]?: ResponsiveValue<
-    BaseTokens[Property] | CSSProperties[Property]
-  >;
+  [Property in keyof Omit<
+    CSSProperties,
+    OverriddenProperties
+  >]?: MapPropertyToToken<Property, Property>;
 } & {
-  top?: MapShorthandToToken<"top", "space">;
-  bottom?: MapShorthandToToken<"bottom", "space">;
-  left?: MapShorthandToToken<"left", "space">;
-  right?: MapShorthandToToken<"right", "space">;
-  margin?: MapShorthandToToken<"margin", "space">;
-  marginTop?: MapShorthandToToken<"marginTop", "space">;
-  marginBottom?: MapShorthandToToken<"marginBottom", "space">;
-  marginLeft?: MapShorthandToToken<"marginLeft", "space">;
-  marginRight?: MapShorthandToToken<"marginRight", "space">;
-  padding?: MapShorthandToToken<"padding", "space">;
-  paddingTop?: MapShorthandToToken<"paddingTop", "space">;
-  paddingBottom?: MapShorthandToToken<"paddingBottom", "space">;
-  paddingLeft?: MapShorthandToToken<"paddingLeft", "space">;
-  paddingRight?: MapShorthandToToken<"paddingRight", "space">;
+  top?: MapPropertyToToken<"top", "space">;
+  bottom?: MapPropertyToToken<"bottom", "space">;
+  left?: MapPropertyToToken<"left", "space">;
+  right?: MapPropertyToToken<"right", "space">;
+  margin?: MapPropertyToToken<"margin", "space">;
+  marginTop?: MapPropertyToToken<"marginTop", "space">;
+  marginBottom?: MapPropertyToToken<"marginBottom", "space">;
+  marginLeft?: MapPropertyToToken<"marginLeft", "space">;
+  marginRight?: MapPropertyToToken<"marginRight", "space">;
+  padding?: MapPropertyToToken<"padding", "space">;
+  paddingTop?: MapPropertyToToken<"paddingTop", "space">;
+  paddingBottom?: MapPropertyToToken<"paddingBottom", "space">;
+  paddingLeft?: MapPropertyToToken<"paddingLeft", "space">;
+  paddingRight?: MapPropertyToToken<"paddingRight", "space">;
 } & Partial<Shorthands> &
   Partial<CustomProperties> &
   Partial<Macros> &
@@ -144,9 +156,7 @@ export interface ThemeConfig {
   tokens: {
     space?: Value[] | KeyValue;
   } & {
-    [Property in keyof BaseTokens]?: Value[] | KeyValue;
-  } & {
-    [Property in keyof Tokens]: Tokens[Property][] | Tokens[Property];
+    [Property in keyof Tokens]?: Value[] | KeyValue;
   };
   shorthands: {
     [Shorthand in keyof Shorthands]: (keyof CSSProperties)[];

@@ -35,7 +35,7 @@ export const shorthands: {
   h: ["height"],
   c: ["color"],
   bg: ["backgroundColor"],
-  m: ["marginTop", "marginBottom", "marginLeft", "marginRight"],
+  ma: ["marginTop", "marginBottom", "marginLeft", "marginRight"],
   mt: ["marginTop"],
   mb: ["marginBottom"],
   ml: ["marginLeft"],
@@ -76,10 +76,6 @@ export const macros: {
   rel: { position: "relative" },
   abs: { position: "absolute" },
   fix: { position: "fixed" },
-  top: { top: 0 },
-  bottom: { bottom: 0 },
-  left: { left: 0 },
-  right: { right: 0 },
   cover: {
     top: 0,
     bottom: 0,
@@ -89,7 +85,6 @@ export const macros: {
   tac: { textAlign: "center" },
   tar: { textAlign: "right" },
   taj: { textAlign: "justify" },
-  ma: { margin: "auto" },
   mxa: { marginLeft: "auto", marginRight: "auto" },
   mya: { marginTop: "auto", marginBottom: "auto" },
 };

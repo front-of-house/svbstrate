@@ -25,7 +25,7 @@ test("explode", () => {
     ),
     ...explode(
       {
-        m: [0, 1, 2],
+        ma: [0, 1, 2],
         d: ["none", "block"],
       },
       theme

@@ -70,7 +70,6 @@ export function explode(
 
     if (cssProperties && cssProperties.length) {
       for (const property of cssProperties) {
-        // @ts-expect-error
         styles[property] = value;
       }
 
