@@ -28,7 +28,7 @@ export interface PresetTokens extends BaseTokens {
 }
 export interface Tokens extends BaseTokens {}
 
-export interface PresetShorthands {
+export interface PresetAliases {
   d: MapPropertyToToken<"display", "display">;
   w: MapPropertyToToken<"width", "width">;
   h: MapPropertyToToken<"height", "height">;
@@ -55,7 +55,7 @@ export interface PresetShorthands {
   lh: MapPropertyToToken<"lineHeight", "lineHeight">;
   ta: MapPropertyToToken<"textAlign", "textAlign">;
 }
-export interface Shorthands {}
+export interface Aliases {}
 
 export interface PresetMacros {
   db: boolean;
@@ -129,7 +129,7 @@ export type SvbstrateCSSStyleObject = {
   paddingBottom?: MapPropertyToToken<"paddingBottom", "space">;
   paddingLeft?: MapPropertyToToken<"paddingLeft", "space">;
   paddingRight?: MapPropertyToToken<"paddingRight", "space">;
-} & Partial<Shorthands> &
+} & Partial<Aliases> &
   Partial<CustomProperties> &
   Partial<Macros> &
   Partial<Variants>;
@@ -158,8 +158,8 @@ export interface ThemeConfig {
   tokens: {
     [Property in keyof Tokens]: Tokens[Property];
   };
-  shorthands: {
-    [Shorthand in keyof Shorthands]: (keyof CSSProperties)[];
+  aliases: {
+    [Alias in keyof Aliases]: (keyof CSSProperties)[];
   };
   macros: {
     [Macro in keyof Macros]: SvbstrateCSSStyleObject;

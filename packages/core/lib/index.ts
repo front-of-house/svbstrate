@@ -4,7 +4,7 @@ import { properties as cssProperties } from "./properties";
 export * from "./types";
 
 /**
- * Expand all macros, variants, and shorthand props.
+ * Expand all macros, variants, and alias props.
  */
 export function explode(
   props: types.SvbstrateStyleObject,
@@ -60,11 +60,11 @@ export function explode(
   }
 
   /*
-   * If any keys are shorthand props, expand them and overwrite their previous
+   * If any keys are alias props, expand them and overwrite their previous
    * values
    */
   for (const [prop, value] of Object.entries(styles)) {
-    const cssProperties = theme.shorthands[prop as keyof types.Shorthands] as
+    const cssProperties = theme.aliases[prop as keyof types.Aliases] as
       | string[]
       | undefined;
 
@@ -73,7 +73,7 @@ export function explode(
         styles[property] = value;
       }
 
-      delete styles[prop]; // remove original shorthand key
+      delete styles[prop]; // remove original alias key
     }
   }
 
@@ -214,7 +214,7 @@ export function pick<T = types.UnknownKeyValue>(
     if (
       theme.macros[prop as keyof types.Macros] ||
       theme.variants[prop as keyof types.Variants] ||
-      theme.shorthands[prop as keyof types.Shorthands] ||
+      theme.aliases[prop as keyof types.Aliases] ||
       theme.properties[prop as keyof types.CSSProperties] ||
       theme.customProperties[prop as keyof types.CustomProperties]
     ) {
@@ -239,7 +239,7 @@ export function createTheme(
   return {
     breakpoints: theme.breakpoints || [],
     tokens: Object.assign({}, theme.tokens || {}),
-    shorthands: Object.assign({}, theme.shorthands || {}),
+    aliases: Object.assign({}, theme.aliases || {}),
     macros: Object.assign({}, theme.macros || {}),
     variants: Object.assign({}, theme.variants || {}),
     customProperties: Object.assign({}, theme.customProperties || {}),

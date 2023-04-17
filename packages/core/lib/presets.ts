@@ -27,8 +27,8 @@ export const tokens: {
   lineHeight: [1.1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6],
 };
 
-export const shorthands: {
-  [Shorthand in keyof types.PresetShorthands]: (keyof types.CSSProperties)[];
+export const aliases: {
+  [Alias in keyof types.PresetAliases]: (keyof types.CSSProperties)[];
 } = {
   d: ["display"],
   w: ["width"],

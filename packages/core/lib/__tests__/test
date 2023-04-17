@@ -28,7 +28,7 @@ declare module "../" {
     }
   }
 
-  interface Shorthands extends s.PresetShorthands {
+  interface Aliases extends s.PresetAliases {
     foo: s.MapPropertyToToken<'color', 'color'>;
   }
 
@@ -55,8 +55,8 @@ const theme = s.createTheme({
     width: [1],
     padding: space,
   },
-  shorthands: {
-    ...presets.shorthands,
+  aliases: {
+    ...presets.aliases,
     foo: ["color"],
   },
   macros: {

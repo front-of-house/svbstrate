@@ -5,7 +5,7 @@ import * as types from "../types";
 import { properties as defaultCssProps } from "../properties";
 import * as defaults from "../presets";
 
-const { tokens, shorthands, macros } = defaults;
+const { tokens, aliases, macros } = defaults;
 
 const theme = createTheme(defaults);
 
@@ -50,7 +50,7 @@ test("style", () => {
     tokens: {
       space: [0, 4, 8, 12],
     },
-    shorthands: {
+    aliases: {
       c: ["color"],
       m: ["marginTop", "marginBottom", "marginLeft", "marginRight"],
     },
@@ -85,9 +85,9 @@ for (const key of Object.keys(defaultCssProps)) {
   });
 }
 
-for (const key of Object.keys(shorthands)) {
+for (const key of Object.keys(aliases)) {
   const properties = ([] as string[]).concat(
-    shorthands[key as keyof types.Shorthands]
+    aliases[key as keyof types.Aliases]
   );
 
   for (const prop of properties) {
@@ -96,7 +96,7 @@ for (const key of Object.keys(shorthands)) {
 
     if (!property) continue;
 
-    test(`shorthands - ${key}`, () => {
+    test(`aliases - ${key}`, () => {
       const { toValue, token } = property;
       const rawValue = 0;
       // @ts-expect-error
@@ -212,7 +212,7 @@ test("negative values", () => {
 
 test("variants", () => {
   const custom = createTheme({
-    shorthands,
+    aliases,
     variants: {
       appearance: {
         primary: {
@@ -247,7 +247,7 @@ test("variants", () => {
 test("breakpoints", () => {
   const custom = createTheme({
     breakpoints: ["400px", "800px"],
-    shorthands,
+    aliases,
   });
   const styles = style(
     {
@@ -265,7 +265,7 @@ test("breakpoints in correct cascading order", () => {
   const custom = createTheme({
     ...theme,
     breakpoints: ["400px", "800px"],
-    shorthands,
+    aliases,
   });
 
   const styles = style(
@@ -291,7 +291,7 @@ test("breakpoints in correct cascading order", () => {
 test("breakpoints in other units", () => {
   const custom = createTheme({
     breakpoints: ["20em", "40em"],
-    shorthands,
+    aliases,
   });
   const styles = style(
     {
@@ -308,7 +308,7 @@ test("breakpoints in other units", () => {
 test("too many breakpoints", () => {
   const custom = createTheme({
     breakpoints: ["400px", "800px"],
-    shorthands,
+    aliases,
   });
   const styles = style(
     {
@@ -363,7 +363,7 @@ test("pseudo elements", () => {
 test("pick", () => {
   const theme = createTheme({
     tokens,
-    shorthands,
+    aliases,
     macros,
     variants: {
       appearance: {
