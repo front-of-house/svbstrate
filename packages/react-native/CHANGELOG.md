@@ -1,5 +1,11 @@
 # @svbstrate/react-native
 
+## 0.0.17
+
+### Patch Changes
+
+- [`eee0a71`](https://github.com/front-of-house/svbstrate/commit/eee0a716be82a72163ac0c8d774446eeca053922) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - `zIndex` should be number
+
 ## 0.0.16
 
 ### Patch Changes
