@@ -1,6 +1,6 @@
 import * as svbstrate from "@svbstrate/core";
 import React from "react";
-import { View, ViewProps } from "react-native";
+import { View, ViewProps, Text as BaseText } from "react-native";
 import * as Polymorphic from "@radix-ui/react-polymorphic";
 
 const defaultProperties: svbstrate.ThemeConfig["properties"] = {
@@ -71,6 +71,10 @@ export type SvbstrateContext = {
 };
 
 type PolymorphicBox = Polymorphic.ForwardRefComponent<typeof View, BoxProps>;
+type PolymorphicText = Polymorphic.ForwardRefComponent<
+  typeof BaseText,
+  BoxProps
+>;
 
 const context = React.createContext<SvbstrateContext>({
   theme: svbstrate.createTheme({
@@ -78,13 +82,14 @@ const context = React.createContext<SvbstrateContext>({
   }),
 });
 
-export function useSvbstrate(): SvbstrateContext {
-  return React.useContext(context);
+export function useTheme() {
+  const svbstrate = React.useContext(context);
+  return svbstrate.theme;
 }
 
-export function useTheme() {
-  const svbstrate = useSvbstrate();
-  return svbstrate.theme;
+export function useTokens() {
+  const svbstrate = useTheme();
+  return svbstrate.tokens;
 }
 
 export function ThemeProvider(
@@ -144,3 +149,7 @@ export const Box = React.forwardRef(({ children, as, ...rest }, ref) => {
     </Component>
   );
 }) as PolymorphicBox;
+
+export const Text = React.forwardRef((props, ref) => {
+  return <Box ref={ref} as={BaseText} {...props} />;
+}) as PolymorphicText;

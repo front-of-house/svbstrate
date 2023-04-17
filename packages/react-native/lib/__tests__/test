@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ThemeProvider, Box } from '../'
+import { ThemeProvider, Box, useTokens } from '../'
 
 declare module '@svbstrate/core' {
   interface Tokens {
@@ -13,6 +13,12 @@ declare module '@svbstrate/core' {
   interface Variants {
     shadow: 'large' | 'small'
   }
+}
+
+function Comp() {
+  const tokens = useTokens()
+  const bg = tokens.color.primary
+  return <Box as={Box} color='primary' shadow='large' style={{}}>Hello</Box>
 }
 
 function App() {
@@ -36,6 +42,7 @@ function App() {
         }
       }}>
         <Box as={Box} color='primary' shadow='large' style={{}}>Hello</Box>
+        <Comp />
       </ThemeProvider>
     </>
   )
