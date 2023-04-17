@@ -1,5 +1,16 @@
 # @svbstrate/react-native
 
+## 0.0.16
+
+### Patch Changes
+
+- [`8ac8c52`](https://github.com/front-of-house/svbstrate/commit/8ac8c52c785d867b93d65ffbd3ea0e5dae76ccae) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Export `useTheme` and `useTokens`, adds `Text` component
+
+- [`8c8dc97`](https://github.com/front-of-house/svbstrate/commit/8c8dc974799f71242fbac7480bd156e96ca64e80) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Remove re-export of core presets
+
+- Updated dependencies [[`23bd323`](https://github.com/front-of-house/svbstrate/commit/23bd32323373c13cc004a964959fe3c690b4b50b), [`6af6418`](https://github.com/front-of-house/svbstrate/commit/6af6418426434b24e57672011e8abc56236e46a4), [`b468921`](https://github.com/front-of-house/svbstrate/commit/b468921b5c71f13e9398b35865f8210af2ec2333)]:
+  - @svbstrate/core@0.0.14
+
 ## 0.0.15
 
 ### Patch Changes
