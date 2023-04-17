@@ -52,6 +52,9 @@ const defaultProperties: svbstrate.ThemeConfig["properties"] = {
   paddingRight: {
     token: "space",
   },
+  zIndex: {
+    token: "zIndex",
+  },
 };
 
 export type Theme = Partial<svbstrate.ThemeConfig>;
