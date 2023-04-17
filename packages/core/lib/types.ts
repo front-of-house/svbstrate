@@ -15,7 +15,9 @@ export interface CSSProperties
 export type BaseTokens = {
   space?: Value[] | KeyValue;
 } & {
-  [Property in keyof CSSProperties]?: Value[] | KeyValue;
+  [Property in keyof Omit<CSSProperties, OverriddenProperties>]:
+    | Value[]
+    | KeyValue;
 };
 
 export interface PresetTokens extends BaseTokens {
@@ -154,9 +156,7 @@ export type SvbstrateStyleObject = SvbstrateCSSStyleObject &
 export interface ThemeConfig {
   breakpoints: Value[];
   tokens: {
-    space?: Value[] | KeyValue;
-  } & {
-    [Property in keyof Tokens]?: Value[] | KeyValue;
+    [Property in keyof Tokens]: Tokens[Property];
   };
   shorthands: {
     [Shorthand in keyof Shorthands]: (keyof CSSProperties)[];
