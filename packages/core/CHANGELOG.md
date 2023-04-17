@@ -1,5 +1,15 @@
 # @svbstrate/core
 
+## 0.0.14
+
+### Patch Changes
+
+- [`23bd323`](https://github.com/front-of-house/svbstrate/commit/23bd32323373c13cc004a964959fe3c690b4b50b) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Change "shorthands" to "aliases" everywhere
+
+- [`6af6418`](https://github.com/front-of-house/svbstrate/commit/6af6418426434b24e57672011e8abc56236e46a4) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Export utils for reuse
+
+- [`b468921`](https://github.com/front-of-house/svbstrate/commit/b468921b5c71f13e9398b35865f8210af2ec2333) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Further improve tokens typing
+
 ## 0.0.13
 
 ### Patch Changes
