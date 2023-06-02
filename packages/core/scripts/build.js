@@ -1,21 +1,22 @@
 const path = require("path");
 
 const options = {
+  entryPoints: ["lib/index.ts", "lib/presets.ts", "lib/utils.ts"],
   sourcemap: true,
   logLevel: "info",
   bundle: true,
+  minify: true,
+  outdir: path.join(__dirname, "../dist"),
 };
 
 require("esbuild").buildSync({
-  entryPoints: ["lib/index.ts"],
   format: "cjs",
-  outfile: path.join(__dirname, "../dist/index.cjs.js"),
+  entryNames: "[dir]/[name].cjs",
   ...options,
 });
 
 require("esbuild").buildSync({
-  entryPoints: ["lib/index.ts"],
   format: "esm",
-  outfile: path.join(__dirname, "../dist/index.esm.js"),
+  entryNames: "[dir]/[name].esm",
   ...options,
 });
