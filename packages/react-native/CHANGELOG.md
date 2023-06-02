@@ -1,5 +1,11 @@
 # @svbstrate/react-native
 
+## 0.0.19
+
+### Patch Changes
+
+- [`bb8148b`](https://github.com/front-of-house/svbstrate/commit/bb8148bb7cbc9de309ef92db132fc83351d67335) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Fix build
+
 ## 0.0.18
 
 ### Patch Changes
