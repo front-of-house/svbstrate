@@ -2,10 +2,11 @@
   "name": "@svbstrate/core",
   "version": "0.0.14",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "vite build && pnpm typegen",
+    "build": "node scripts/build && pnpm typegen",
     "test": "vitest run --coverage",
     "test:watch": "vitest --coverage",
     "typecheck": "tsc --noEmit",
