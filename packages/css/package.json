@@ -1,0 +1,29 @@
+{
+  "name": "@svbstrate/css",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "node scripts/build && pnpm typegen",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest --coverage",
+    "typecheck": "tsc --noEmit",
+    "typegen": "tsc --emitDeclarationOnly"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/front-of-house/monorepo.git"
+  },
+  "author": "estrattonbailey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/front-of-house/monorepo/issues"
+  },
+  "homepage": "https://github.com/front-of-house/monorepo#readme",
+  "dependencies": {
+    "@svbstrate/core": "workspace:^0.0.14",
+    "nano-css": "^5.3.5"
+  }
+}
