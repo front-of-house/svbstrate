@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.15
+
+### Patch Changes
+
+- [#25](https://github.com/front-of-house/svbstrate/pull/25) [`c97a58e`](https://github.com/front-of-house/svbstrate/commit/c97a58e08e29f4c2580f36ed97f9f1e82f71d6de) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Use esbuild to build library, and use Vite for Vitest only
+
 ## 0.0.14
 
 ### Patch Changes
