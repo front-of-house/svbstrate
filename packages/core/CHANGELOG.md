@@ -1,5 +1,11 @@
 # @svbstrate/core
 
+## 0.0.16
+
+### Patch Changes
+
+- [`c7e79a4`](https://github.com/front-of-house/svbstrate/commit/c7e79a4d930f0ad7ecea614a6760a084941c0a38) Thanks [@estrattonbailey](https://github.com/estrattonbailey)! - Re-export `presets` and `utils` for external library consumption
+
 ## 0.0.15
 
 ### Patch Changes
