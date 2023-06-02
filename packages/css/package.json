@@ -1,6 +1,6 @@
 {
   "name": "@svbstrate/css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/front-of-house/monorepo#readme",
   "dependencies": {
-    "@svbstrate/core": "workspace:^0.0.15",
+    "@svbstrate/core": "workspace:^0.0.16",
     "nano-css": "^5.3.5"
   }
 }

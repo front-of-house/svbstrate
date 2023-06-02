@@ -1,5 +1,12 @@
 # @svbstrate/react-native
 
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`c7e79a4`](https://github.com/front-of-house/svbstrate/commit/c7e79a4d930f0ad7ecea614a6760a084941c0a38)]:
+  - @svbstrate/core@0.0.16
+
 ## 0.0.19
 
 ### Patch Changes
