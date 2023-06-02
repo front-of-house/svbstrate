@@ -4,6 +4,8 @@ const options = {
   entryPoints: ["lib/index.tsx"],
   sourcemap: true,
   logLevel: "info",
+  bundle: true,
+  external: ["react", "react-native"],
 };
 
 require("esbuild").buildSync({
